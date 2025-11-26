@@ -4,25 +4,39 @@
     <meta charset="UTF-8">
     <title>{% block title %}Магазин товаров для дома{% endblock %}</title>
 
-    {% if vision_mode %}
-        <link rel="stylesheet" href="/static/css/vision.css">
-    {% else %}
-        <link rel="stylesheet" href="/static/css/style.css">
-    {% endif %}
+    <!-- базовый стиль -->
+    <link id="theme-style" rel="stylesheet" href="/static/css/style.css">
 </head>
 
 <body>
-    <header>
-        <nav>
-            <a href="/">Главная</a>
-            <a href="/sitemap">Карта сайта</a>
-            <a href="/vision">Версия для слабовидящих</a>
-        </nav>
-    </header>
+<header>
+    <nav>
+        <a href="/">Главная</a>
+        <a href="/sitemap">Карта сайта</a>
 
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+        <!-- КНОПКА для переключения -->
+        <button id="vision-toggle">Версия для слабовидящих</button>
+    </nav>
+</header>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<script>
+    const toggle = document.getElementById("vision-toggle");
+    const theme = document.getElementById("theme-style");
+
+    toggle.addEventListener("click", () => {
+        const current = theme.getAttribute("href");
+
+        if (current === "/static/css/style.css") {
+            theme.setAttribute("href", "/static/css/vision.css");
+        } else {
+            theme.setAttribute("href", "/static/css/style.css");
+        }
+    });
+</script>
+
 </body>
 </html>
-
