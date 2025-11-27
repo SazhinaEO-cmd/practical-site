@@ -10,6 +10,26 @@ def index():
 def vision():
     return render_template("index.html", vision_mode=True)
 
+@app.route("/catalog")
+def catalog():
+    return render_template("catalog.html")
+
+@app.route("/delivery")
+def delivery():
+    return render_template("delivery.html")
+
+@app.route("/sales")
+def sales():
+    return render_template("sales.html")
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@app.route("/contacts")
+def contacts():
+    return render_template("contacts.html")
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template("404.html", vision_mode=False), 404
