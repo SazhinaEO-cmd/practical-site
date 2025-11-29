@@ -11,8 +11,33 @@ def vision():
     return render_template("index.html", vision_mode=True)
 
 @app.route("/catalog")
-def catalog():
-    return render_template("catalog.html")
+def catalog_list():
+    categories = [
+        {"id":1, "name": "Посуда"},
+        {"id":1, "name": "Текстиль"},
+        {"id":1, "name": "Декор"},
+        {"id":1, "name": "Хозяственные товары"},
+    ]
+    return render_template("catalog/list.html", categories=categories)
+
+@app.route("/catalog/<int:category_id>")
+def catalog_category(category_id):
+    # Временные данные для теста
+    products = [
+        {"id": 1, "name": "Набор тарелок", "price": 1200},
+        {"id": 2, "name": "Стаканы стеклянные", "price": 850},
+        {"id": 3, "name": "Салфетки хлопковые", "price": 400},
+    ]
+    return render_template("catalog/category.html", category_id=category_id, products=products)
+
+@app.route("/product/<int:product_id>")
+def product_page(product_id):
+    product = {
+        "name": "Набор тарелок",
+        "description": "Классический набор из керамики",
+        "price": 1200
+    }
+    return render_template("catalog/product.html", product=product)
 
 @app.route("/delivery")
 def delivery():

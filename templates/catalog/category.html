@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Категория товаров{% endblock %}
+{% block content %}
+
+<h1>Категория №{{ category_id }}</h1>
+
+<ul>
+    {% for p in products %}
+        <li>
+            <a href="/product/{{ p.id }}">
+                {{ p.name }} — {{ p.price }} ₽
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
