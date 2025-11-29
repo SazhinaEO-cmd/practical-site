@@ -1,6 +1,28 @@
 {% extends "base.html" %}
 {% block title %}Контакты{% endblock %}
+
 {% block content %}
 <h1>Контакты</h1>
-<p>Номера и адреса магазинов</p>
+
+<section>
+    <h2>Наши магазины</h2>
+    <p>Номера и адреса магазинов, часы работы</p>
+</section>
+
+<section>
+    <h2>Форма обратной связи</h2>
+    <form>
+        <label>Ваше имя</label><br>
+        <input type="text" placeholder="Введите имя"><br>
+
+        <label>Ваше имя</label><br>
+        <input type="text" placeholder="Введите имя"><br>
+        
+        <label>Текст сообщения</label><br>
+        <textarea placeholder="Введите текст"></textarea><br>
+        
+        <button type="submit">Отправить</button>
+    </form>
+</section>
+
 {% endblock %}
