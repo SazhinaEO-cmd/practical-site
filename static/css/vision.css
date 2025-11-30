@@ -1,5 +1,35 @@
-body {
-    background: #000;
-    color: #fff;
-    font-size: 22px;
+:root{
+  --bg:#FFFFFF;
+  --text:#0D0D0D;
+  --accent:#0038FF; /* насыщенный синий для CTA */
+  --border:#2A2A2A;
+  --font-size:22px;
+  --line-height:1.6;
+  --font-family: "Open Sans", Arial, sans-serif;
 }
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-family);
+  font-size:var(--font-size);
+  line-height:var(--line-height);
+}
+
+/* упрощённая навигация */
+header{background:var(--bg);border-bottom:3px solid var(--border)}
+header .container{display:flex;justify-content:space-between;padding:16px}
+nav a{color:var(--text);text-decoration:underline;margin-left:14px;font-weight:700}
+
+/* крупные кнопки */
+.btn{background:var(--accent);color:white;padding:12px 16px;border-radius:6px;font-weight:700}
+
+/* контент с большей шириной строки ограничиваем */
+.container{max-width:900px;margin:0 auto;padding:0 16px}
+
+/* крупные карточки */
+.card img{height:180px;object-fit:cover}
+.card{border:3px solid var(--border);padding:12px;background:#fff;border-radius:6px}
