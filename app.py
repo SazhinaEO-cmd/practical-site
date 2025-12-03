@@ -14,9 +14,9 @@ def vision():
 def catalog_list():
     categories = [
         {"id":1, "name": "Посуда"},
-        {"id":1, "name": "Текстиль"},
-        {"id":1, "name": "Декор"},
-        {"id":1, "name": "Хозяственные товары"},
+        {"id":2, "name": "Текстиль"},
+        {"id":3, "name": "Декор"},
+        {"id":4, "name": "Хозяйственные товары"},
     ]
     return render_template("catalog/list.html", categories=categories)
 

@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Категория товаров{% endblock %}
+
 {% block content %}
 
+<section class="container"></section>
 <h1>Категория №{{ category_id }}</h1>
 
 <ul>
@@ -13,5 +15,5 @@
         </li>
     {% endfor %}
 </ul>
-
+</section>
 {% endblock %}
