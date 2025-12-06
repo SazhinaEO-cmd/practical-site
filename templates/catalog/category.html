@@ -3,17 +3,21 @@
 
 {% block content %}
 
-<section class="container"></section>
-<h1>Категория №{{ category_id }}</h1>
-
-<ul>
-    {% for p in products %}
-        <li>
-            <a href="/product/{{ p.id }}">
-                {{ p.name }} — {{ p.price }} ₽
-            </a>
-        </li>
-    {% endfor %}
-</ul>
+<section class="container">
+    <h1>{{ category.name }}</h1>
+        <div class="grid">
+        {% for p in products %}
+        <div class="card">
+            <img src="{{ p.image }}" alt="{{ p.name }}">
+            <div class="body">
+                <h4>{{ p.name }}</h4>
+                <p>{{ p.price }} ₽</p>
+                <div class="actions">
+                    <a class="btn" href="/product/{{ p.id }}">Подробнее</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </section>
 {% endblock %}

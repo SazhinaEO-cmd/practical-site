@@ -2,13 +2,20 @@
 {% block title %}Каталог{% endblock %}
 
 {% block content %}
-
-<h1>Категории товаров</h1>
-
-<ul>
-    {% for c in categories %}
-        <li><a href="/catalog/{{ c.id }}">{{ c.name }}</a></li>
-    {% endfor %}
-</ul>
-
+<section class="container">
+    <h1>Категории товаров</h1>
+    <div class="grid">
+        {% for c in categories %}
+        <div class="card">
+            <img src="{{ url_for('static', filename='img/' ~ c.img) }}" alt="{{ c.name }}">
+            <div class="body">
+                <h4>{{ c.name }}</h4>
+                <div class="actions">
+                    <a class="btn" href="/catalog/{{ c.id }}">Перейти</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
 {% endblock %}

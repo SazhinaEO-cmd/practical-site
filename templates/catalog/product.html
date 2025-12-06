@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 {% block title %}{{ product.name }}{% endblock %}
+
 {% block content %}
 
-<h1>{{ product.name }}</h1>
-<p>{{ product.description }}</p>
-<p><strong>Цена: {{ product.price }} ₽</strong></p>
-
+<section class="container">
+    <h1>{{ product.name }}</h1>
+    <img src="{{ product.image }}" alt="{{ product.name }}" style="max-width:350px;border-radius:12px;">
+    <p>{{ product.description }}</p>
+    <p><strong>Цена: {{ product.price }} ₽</strong></p>
+    <a href="/catalog/{{ product.category_id }}" class="btn secondary">Назад</a>
+</section>
 {% endblock %}

@@ -1,6 +1,15 @@
+
+import json
+import os
 from flask import Flask, render_template
 
 app = Flask(__name__)
+
+def load_data():
+    path = "data/catalog.json"
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+DATA = load_data()
 
 @app.route("/")
 def index():
@@ -12,31 +21,19 @@ def vision():
 
 @app.route("/catalog")
 def catalog_list():
-    categories = [
-        {"id":1, "name": "Посуда"},
-        {"id":2, "name": "Текстиль"},
-        {"id":3, "name": "Декор"},
-        {"id":4, "name": "Хозяйственные товары"},
-    ]
+    categories = DATA["categories"]
     return render_template("catalog/list.html", categories=categories)
 
 @app.route("/catalog/<int:category_id>")
 def catalog_category(category_id):
-    # Временные данные для теста
     products = [
-        {"id": 1, "name": "Набор тарелок", "price": 1200},
-        {"id": 2, "name": "Стаканы стеклянные", "price": 850},
-        {"id": 3, "name": "Салфетки хлопковые", "price": 400},
-    ]
-    return render_template("catalog/category.html", category_id=category_id, products=products)
+        p for p in DATA["products"] if p["category_id"] == category_id]
+    category = next((c for c in DATA["categories"] if c["id"] == category_id), None)
+    return render_template("catalog/category.html", category=category, products=products)
 
 @app.route("/product/<int:product_id>")
 def product_page(product_id):
-    product = {
-        "name": "Набор тарелок",
-        "description": "Классический набор из керамики",
-        "price": 1200
-    }
+    product = next((p for p in DATA["products"] if p["id"] == product_id), None)
     return render_template("catalog/product.html", product=product)
 
 @app.route("/delivery")
