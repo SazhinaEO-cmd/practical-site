@@ -196,8 +196,9 @@ nav a:hover{opacity:0.9}
 
 .btn.secondary{
   background:transparent;
-  color:white;
-  border:1px solid var(--brand-2)
+  color: var(--brand);
+  border:2px solid var(--brand-2);
+  font-weight: 600;
 }
 
 /* footer */
