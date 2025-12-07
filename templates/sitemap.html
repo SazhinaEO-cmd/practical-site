@@ -1,13 +1,18 @@
 {% extends "base.html" %}
 {% block title %}Карта сайта{% endblock %}
+
 {% block content %}
-<h1>Карта сайта</h1>
-<ul>
-    <li><a href="/">Главная</a></li>
-    <li><a href="/catalog">Каталог</a></li>
-    <li><a href="/delivery">Доставка и оплата</a></li>
-    <li><a href="/sales">Акции</a></li>
-    <li><a href="/about">О компании</a></li>
-    <li><a href="/contacts">Контакты</a></li>
-</ul>
+<section class="container">
+
+    <h1>Карта сайта</h1>
+    <ul class="new-list">
+        <li><a href="/">Главная</a></li>
+        <li><a href="/catalog">Каталог</a></li>
+        <li><a href="/delivery">Доставка и оплата</a></li>
+        <li><a href="/sales">Акции</a></li>
+        <li><a href="/about">О компании</a></li>
+        <li><a href="/contacts">Контакты</a></li>
+    </ul>
+    <a href="/" class="btn secondary">Вернуться на главную</a>
+</section>
 {% endblock %}

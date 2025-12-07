@@ -257,3 +257,67 @@ p{margin:0 0 12px}
   text-align: center;
   font-weight: 600;
 }
+
+/* для страницы о нас */
+.about-wrapper {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.about-text {
+  flex: 1;
+}
+
+.about-img img {
+  width: 420px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.about-list {
+  padding-left: 20px;
+  color: var(--dark);
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .about-wrapper {
+    flex-direction: column;
+  }
+
+  .about-img img {
+    width: 100%;
+  }
+}
+
+/* для формы обратной связи */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 500px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 12px 14px;
+    border: 1px solid #d0d4dd;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: var(--base-font);
+    background: white;
+    outline: none;
+    transition: 0.25s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: var(--brand-2);
+    box-shadow: 0 0 0 3px rgba(66, 168, 177, 0.15);
+}
+
+.contact-form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
