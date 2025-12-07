@@ -2,15 +2,31 @@
 {% block title %}Акции{% endblock %}
 
 {% block content %}
-<h1>Акции</h1>
-
-<p>Акции, распродажи, система лояльности</p>
-
-<div class="promo-list">
-    <div class="promo-card">
-        <h3>Горячие предложения</h3>
-        <p>Описание</p>
+<section class="container">
+    <h1>Акции и специальные предложения</h1>
+    <div class="grid">
+        <div class="card">
+            <img src="/static/img/sales/banner-sale.jpg.jpg" alt="Скидки">
+            <div class="body">
+                <h4>Скидки до 50% на текстиль</h4>
+                <p>Только до 31 декабря 2025 большая распродажа с большими скидками на текстиль. Успейте купить в подарок к новому году себе и близким!</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/static/img/sales/banner-kitchen.jpg.jpg" alt="Новинки для кухни">
+            <div class="body">
+                <h4>Новинки для кухни</h4>
+                <p>Свежий дизайн и новые коллекции</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/static/img/sales/banner-delivery.jpg.jpg" alt="Бесплатная доставка">
+            <div class="body">
+                <h4>Бесплатная доставка</h4>
+                <p>При заказе от 3000 ₽</p>
+            </div>
+        </div>
     </div>
-</div>
-
+    <a href="/" class="btn secondary">Назад</a>
+</section>
 {% endblock %}
