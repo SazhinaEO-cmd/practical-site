@@ -240,8 +240,8 @@ p{margin:0 0 12px}
 /* Преимущества */
 .benefits {
   background: var(--panel);
-  padding: 32px 0;
-  margin-top: 32px;
+  padding: 40px 0;
+  margin-top: 48px;
 }
 .benefits-row {
   display: flex;
@@ -250,12 +250,24 @@ p{margin:0 0 12px}
 }
 .benefit-item {
   background: white;
-  padding: 16px 20px;
-  border-radius: 12px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
   flex: 1 1 200px;
   text-align: center;
   font-weight: 600;
+}
+
+.benefits-title {
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 6px;
+}
+
+.benefits-subtitle {
+    text-align: center;
+    color: var(--muted);
+    margin-bottom: 20px;
 }
 
 /* для страницы о нас */
@@ -269,8 +281,14 @@ p{margin:0 0 12px}
   flex: 1;
 }
 
+.about-text h2 {
+    margin-top: 24px;
+    padding-top: 12px;
+    border-top: 1px solid #e3e6ee;
+}
+
 .about-img img {
-  width: 420px;
+  width: 520px;
   border-radius: 12px;
   box-shadow: 0 4px 14px rgba(0,0,0,0.08);
 }
