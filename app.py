@@ -1,7 +1,6 @@
 
 import json
-import os
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
@@ -60,5 +59,18 @@ def page_not_found(e):
 def sitemap():
     return render_template("sitemap.html", vision_mode=False)
 
+@app.route("/contact/send", methods=["POST"])
+def contact_send():
+    name = request.form.get("name")
+    email = request.form.get("email")
+    message = request.form.get("message")
+
+    # сохраняем в текстовый файл
+    with open("data/messages.txt", "a", encoding="utf-8") as f:
+        f.write(f"{name} | {email} | {message}\n")
+
+    return redirect("/contacts")
+
 if __name__ == "__main__":
     app.run(debug=True)
+

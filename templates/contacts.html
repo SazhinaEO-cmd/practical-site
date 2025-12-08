@@ -6,48 +6,48 @@
 <section class="container">
     <h1>Контакты</h1>
     <!-- Адреса и контакты -->
-    <h2>Наши магазины</h2>
+    <h2>Адреса наших магазинов</h2>
     <div class="grid">
         <div class="card">
             <div class="body">
                 <h4>Главный магазин</h4>
-                <p>г. Москва, ул. Центральная, 12</p>
-                <p>Время работы: 09:00 — 22:00. Без выходных.</p>
-                <p><strong>тел. +7 (900) 123-45-67</strong></p>
+                <p>📍 г. Москва, ул. Центральная, 12</p>
+                <p>🕒 Время работы: 09:00 — 22:00. Без выходных.</p>
+                <p><strong>📞 тел. +7 (900) 123-45-67</strong></p>
             </div>
         </div>
         <div class="card">
             <div class="body">
                 <h4>Магазин «Северный»</h4>
-                <p>г. Москва, пр-т Северный, 88</p>
-                <p>Время работы: 09:00 — 22:00. Без выходных.</p>
-                <p><strong>тел. +7 (900) 456-78-90</strong></p>
+                <p>📍 г. Москва, пр-т Северный, 88</p>
+                <p>🕒 Время работы: 09:00 — 22:00. Без выходных.</p>
+                <p><strong>📞 тел. +7 (900) 456-78-90</strong></p>
             </div>
         </div>
         <div class="card">
             <div class="body">
                 <h4>Магазин «Южный»</h4>
-                <p>г. Москва, пр-т Южная, 5</p>
-                <p>Время работы: 09:00 — 22:00. Без выходных.</p>
-                <p><strong>тел. +7 (900) 777-88-99</strong></p>
+                <p>📍 г. Москва, пр-т Южная, 5</p>
+                <p>🕒 Время работы: 09:00 — 22:00. Без выходных.</p>
+                <p><strong>📞 тел. +7 (900) 777-88-99</strong></p>
             </div>
     </div>
 </section>
 <!-- Форма обратной связи -->
 <section class="container">
-    <h2 style="margin-top:40px;">Форма обратной связи</h2>
+    <h2>Напишите нам</h2>
     
-    <form class="contact-form">
+    <form class="contact-form" method="POST" action="/contact/send">
         <label for="name">Ваше имя</label>
-        <input id="name" type="text" placeholder="Введите имя">
+        <input id="name" name = "name" type="text" placeholder="Введите имя" required>
 
         <label for="email">Email</label>
-        <input id="email" type="email" placeholder="Введите имя">
+        <input id="email" name="email" type="email" placeholder="Введите имя" required>
         
         <label for="message">Текст сообщения</label>
-        <textarea id="message" rows="5" placeholder="Введите текст"></textarea>
+        <textarea id="message" name="message" placeholder="Введите текст" required></textarea>
         
-        <button class = "btn" type="submit" style="margin-top:14px;">Отправить</button>
+        <button class = "btn" type="submit">Отправить</button>
     </form>
     <br>
     <a href="/" class="btn secondary">Вернуться на главную</a>
