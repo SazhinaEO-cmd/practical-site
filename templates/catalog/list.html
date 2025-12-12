@@ -7,7 +7,7 @@
     <div class="grid">
         {% for c in categories %}
         <div class="card">
-            <img src="{{ url_for('static', filename='img/' ~ c.img) }}" alt="{{ c.name }}">
+            <img src="{{ url_for('static', filename='img/categories/' + c.img) }}" alt="{{ c.name }}">
             <div class="body">
                 <h4>{{ c.name }}</h4>
                 <div class="actions">

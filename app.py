@@ -20,8 +20,13 @@ def index():
 def vision():
     return render_template("index.html", vision_mode=True)
 
+def get_data():
+    with open("data/catalog.json", "r", encoding="utf-8") as f:
+        return json.load(f)
+
 @app.route("/catalog")
 def catalog_list():
+    data = get_data()
     categories = DATA["categories"]
     return render_template("catalog/list.html", categories=categories)
 

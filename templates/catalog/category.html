@@ -8,7 +8,7 @@
         <div class="grid">
         {% for p in products %}
         <div class="card">
-            <img src="{{ p.image }}" alt="{{ p.name }}">
+            <img src="{{ url_for('static', filename='img/products/' + p.image) }}" alt="{{ p.name }}">
             <div class="body">
                 <h4>{{ p.name }}</h4>
                 <p>{{ p.price }} ₽</p>
