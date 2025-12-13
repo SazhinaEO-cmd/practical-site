@@ -5,27 +5,15 @@
 <section class="container">
     <h1>Акции и специальные предложения</h1>
     <div class="grid">
+        {% for s in sales %}
         <div class="card">
-            <img src="/static/img/sales/banner-sale.jpg" alt="Скидки">
+            <img src="{{ url_for('static', filename='img/sales/' ~ s.image) }}" alt="{{ s.title }}">
             <div class="body">
-                <h4>Скидки до 50% на текстиль</h4>
-                <p>Только до 31 декабря 2025 большая распродажа с большими скидками на текстиль. Успейте купить в подарок к новому году себе и близким!</p>
+                <h4>{{ s.title }}</h4>
+                <p>{{ s.text }}</p>
             </div>
         </div>
-        <div class="card">
-            <img src="/static/img/sales/banner-kitchen.jpg" alt="Новинки для кухни">
-            <div class="body">
-                <h4>Новинки для кухни</h4>
-                <p>Свежий дизайн и новые коллекции</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="/static/img/sales/banner-delivery.jpg" alt="Бесплатная доставка">
-            <div class="body">
-                <h4>Бесплатная доставка</h4>
-                <p>При заказе от 3000 ₽</p>
-            </div>
-        </div>
+        {% endfor %}
     </div>
     <div class="loyalty">
     <h2>Карта лояльности HomeStore</h2>

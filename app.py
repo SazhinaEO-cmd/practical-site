@@ -14,7 +14,8 @@ DATA = load_data()
 def index():
     news = DATA.get("news", [])
     sales = DATA.get("sales", [])
-    return render_template("index.html", news=news, sales=sales, vision_mode=False)
+    categories = DATA.get("categories", [])
+    return render_template("index.html", news=news, sales=sales, categories=categories, vision_mode=False)
 
 @app.route("/vision")
 def vision():

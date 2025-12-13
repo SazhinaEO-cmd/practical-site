@@ -16,9 +16,9 @@
 <!--Баннеры-->
 <section class="banner">
     <div class="container">
-        <div class="banner-item">Скидки до 50% на текстиль</div>
-        <div class="banner-item">Новинки для кухни</div>
-        <div class="banner-item">Бесплатная доставка от 3000 рублей</div>
+        {% for s in sales %}
+            <div class="banner-item">{{ s.title }}</div>
+        {% endfor %}
     </div>
 </section>
 
@@ -26,45 +26,26 @@
 <section class="container">
     <h2>Популярные категории</h2>
     <div class="grid">
+        {% for c in categories %}
         <div class="card">
-            <img src="/static/img/categories/card1.jpg" alt="текстиль для дома">
+            <img src="{{ url_for('static', filename='img/categories/' ~ c.img) }}" alt="{{ c.name }}">
             <div class="body">
-                <h4>Текстиль для дома</h4>
-                <p>Пледы, подушки, покрывала</p>
+                <h4>{{ c.name }}</h4>
                 <div class="actions">
-                    <a class="btn" href="/catalog">Смотреть</a>
+                    <a class="btn" href="/catalog/{{ c.id }}">Смотреть</a>
                 </div>
             </div>
         </div>
-        <div class="card">
-            <img src="/static/img/categories/card2.jpg" alt="товары для кухни">
-            <div class="body">
-                <h4>Товары для кухни</h4>
-                <p>Посуда, хранение, аксессуары</p>
-                <div class="actions">
-                    <a class="btn" href="/catalog">Смотреть</a>
-                </div>
-            </div>
-        </div>
-                <div class="card">
-            <img src="/static/img/categories/card3.jpg" alt="декор">
-            <div class="body">
-                <h4>Декор и интерьер</h4>
-                <p>Вазы, свечи, картины</p>
-                <div class="actions">
-                    <a class="btn" href="/catalog">Смотреть</a>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </section>
 <!-- Новости -->
 <section class="container" style="margin-top: 40px">
     <h2>Новости</h2>
     <ul class="news-list">
-        <li>Открытие нового магазина</li>
-        <li>Обновление ассортимента кухонных товаров</li>
-        <li>Сезонные скидки до конца месяца</li>
+        {% for n in news %}
+        <li><strong>{{ n.title }}</strong> — {{ n.date }}</li>
+        {% endfor %}
     </ul>
 </section>
 
@@ -72,8 +53,8 @@
 <section class="benefits">
     <div class="container benefits-row">
         <div class="benefit-item">💳 Удобные способы оплаты</div>
-        <div class="benefit-item">📦 Быстрая доставка</div>
-        <div class="benefit-item">🏷 Большой выбор товаров</div>
+        <div class="benefit-item">🚚 Быстрая доставка</div>
+        <div class="benefit-item">🛒 Большой выбор товаров</div>
         <div class="benefit-item">💬 Поддержка покупателей</div>
     </div>
 </section>
