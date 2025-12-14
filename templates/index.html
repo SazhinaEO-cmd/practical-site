@@ -14,10 +14,12 @@
 </section>
 
 <!--Баннеры-->
-<section class="banner">
-    <div class="container">
+<section class="slider">
+    <div class="slider-wrapper">
         {% for s in sales %}
-            <div class="banner-item">{{ s.title }}</div>
+            <a href="/sales" class="slide {% if loop.first %}active{% endif %}" data-bg="{{ url_for('static', filename='img/sales/' ~ s.image) }}">
+            <div class="slide-overlay"><h2>{{ s.title }}</h2></div>
+            </a>
         {% endfor %}
     </div>
 </section>
@@ -39,15 +41,6 @@
         {% endfor %}
     </div>
 </section>
-<!-- Новости -->
-<section class="container" style="margin-top: 40px">
-    <h2>Новости</h2>
-    <ul class="news-list">
-        {% for n in news %}
-        <li><strong>{{ n.title }}</strong> — {{ n.date }}</li>
-        {% endfor %}
-    </ul>
-</section>
 
 <!-- Преимущества сети магазинов -->
 <section class="benefits">
@@ -57,5 +50,15 @@
         <div class="benefit-item">🛒 Большой выбор товаров</div>
         <div class="benefit-item">💬 Поддержка покупателей</div>
     </div>
+</section>
+
+<!-- Новости -->
+<section class="container" style="margin-top: 40px">
+    <h2>Новости</h2>
+    <ul class="news-list">
+        {% for n in news %}
+        <li><strong>{{ n.title }}</strong> — {{ n.date }}</li>
+        {% endfor %}
+    </ul>
 </section>
 {% endblock %}

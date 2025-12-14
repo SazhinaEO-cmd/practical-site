@@ -145,11 +145,12 @@ nav a:hover{opacity:0.9}
   display:flex;
   flex-direction:column;
   transition: 0.25s;
+  box-shadow: 0.25s;
 }
 
 .card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
 }
 
 .card img{
@@ -176,6 +177,10 @@ nav a:hover{opacity:0.9}
   display:flex;
   justify-content:space-between;
   align-items:center
+}
+
+.card .btn {
+  align-self: flex-start;
 }
 
 .btn{
@@ -371,6 +376,68 @@ p{margin:0 0 12px}
 .loyalty-item:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+}
+
+/* ===== Баннеры - слайдер ===== */
+
+.slider {
+  width: 100%;
+  position: relative;
+  margin-top: 40px;
+}
+
+.slider-wrapper {
+  position: relative;
+  height: 260px;
+  margin: 40px 0;
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0,0,0,0.45),
+    rgba(0,0,0,0.15)
+  );
+}
+
+.slide-overlay {
+  position: relative;
+  z-index: 2;
+  background: rgba(0,0,0,0.45);
+  color: white;
+  padding: 24px 32px;
+  border-radius: 14px;
+  text-align: left;
+  max-width: 520px;
+}
+
+.slide-overlay h2 {
+  font-size: 32px;
+  margin-bottom: 12px;
 }
 
 

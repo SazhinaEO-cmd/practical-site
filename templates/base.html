@@ -8,6 +8,25 @@
     <link id="theme-style" rel="stylesheet" href="/static/css/style.css">
 </head>
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const slides = document.querySelectorAll(".slide");
+    let current = 0;
+
+    slides.forEach(slide => {
+        slide.style.backgroundImage = `url(${slide.dataset.bg})`;
+    });
+
+    if (slides.length <= 1) return;
+
+    setInterval(() => {
+        slides[current].classList.remove("active");
+        current = (current + 1) % slides.length;
+        slides[current].classList.add("active");
+    }, 4000);
+});
+</script>
+
 <body>
 <header>
     <div class="container">
