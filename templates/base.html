@@ -6,6 +6,14 @@
 
     <!-- базовый стиль -->
     <link id="theme-style" rel="stylesheet" href="/static/css/style.css">
+
+    {% if session.get("user") %}
+        <span>Вы вошли как {{ session.user.username }}</span>
+        <a href="/logout">Выход</a>
+    {% else %}
+        <a href="/login">Вход</a>
+    {% endif %}
+
 </head>
 
 <script>
