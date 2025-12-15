@@ -1,6 +1,6 @@
 
 import json
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session, flash
 
 app = Flask(__name__)
 
@@ -79,6 +79,42 @@ def contact_send():
         f.write(f"{name} | {email} | {message}\n")
 
     return redirect("/contacts")
+
+def load_users():
+    with open("data/users.json", encoding="utf-8") as f:
+        return json.load(f)["users"]
+    
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+
+        users = load_users()
+        user = next(
+            (u for u in users if u["username"] == username and u["password"] == password),
+            None
+        )
+
+        if user:
+            session["user"] = {
+                "username": user["username"],
+                "role": user["role"]
+            }
+            return redirect("/")
+        else:
+            flash("Неверный логин или пароль")
+
+    return render_template("login.html")
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/")
+
+def admin_required():
+    user = session.get("user")
+    return user and user["role"] == "admin"
 
 if __name__ == "__main__":
     app.run(debug=True)

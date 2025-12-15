@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+<section class="container">
+  <h1>Вход в систему</h1>
+
+  <form method="post" class="contact-form">
+    <input name="username" placeholder="Логин" required>
+    <input name="password" type="password" placeholder="Пароль" required>
+    <button class="_toggle-btn">Войти</button>
+  </form>
+</section>
+{% endblock %}
