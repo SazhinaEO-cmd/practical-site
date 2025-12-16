@@ -14,6 +14,13 @@
         <a href="/login">Вход</a>
     {% endif %}
 
+    <a href="/cart" class="cart-link">
+    🛒 Корзина
+    {% if session.cart %}
+        ({{ session.cart | length }})
+    {% endif %}
+</a>
+
 </head>
 
 <script>

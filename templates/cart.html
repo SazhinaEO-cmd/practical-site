@@ -2,8 +2,29 @@
 {% block title %}Корзина{% endblock %}
 
 {% block content %}
-<h1>Корзина</h1>
+<section class="container">
+    <h1>Корзина</h1>
 
-<p>текст</p>
+    {% if cart_items %}
+        {% for item in cart_items %}
+        <div class="card">
+            <div class="body">
+                <h4>{{ item.product.name }}</h4>
+                <p>Цена: {{ item.product.price }} ₽</p>
+                <p>Количество:<a href="/cart/dec/{{ item.product.id }}">−</a>{{ item.qty }}<a href="/cart/inc/{{ item.product.id }}">+</a></p>
+                <p><strong>Сумма: {{ item.total }} ₽</strong></p>
+                <a href="/cart/remove/{{ item.product.id }}" class="btn secondary">Удалить</a>
+            </div>
+        </div>
+        {% endfor %}
 
+        <h3>Итого: {{ total }} ₽</h3>
+
+        <a href="/cart/clear" class="btn secondary">Очистить корзину</a>
+        <a href="/catalog" class="btn">Продолжить покупки</a>
+        <a href="#" class="btn">Оформить заказ</a>
+    {% else %}
+        <p>Корзина пуста</p>
+    {% endif %}
+</section>
 {% endblock %}

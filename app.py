@@ -74,6 +74,88 @@ def page_not_found(e):
 def sitemap():
     return render_template("sitemap.html", vision_mode=False)
 
+# ---------- Корзина ----------
+
+def get_cart():
+    return session.get("cart", {})
+
+def save_cart(cart):
+    session["cart"] = cart
+    session.modified = True
+
+@app.route("/cart/add/<int:product_id>")
+def cart_add(product_id):
+    user = session.get("user")
+    if not user or user["role"] != "customer":
+        return redirect("/login")
+    cart = get_cart()
+    pid = str(product_id)
+    cart[pid] = cart.get(pid, 0) + 1
+    save_cart(cart)
+    return redirect(request.referrer or "/cart")
+
+@app.route("/cart/inc/<int:product_id>")
+def cart_inc(product_id):
+    cart = get_cart()
+    pid = str(product_id)
+    cart[pid] = cart.get(pid, 0) + 1
+    save_cart(cart)
+    return redirect("/cart")
+
+@app.route("/cart/dec/<int:product_id>")
+def cart_dec(product_id):
+    cart = get_cart()
+    pid = str(product_id)
+
+    if pid in cart:
+        cart[pid] -= 1
+        if cart[pid] <= 0:
+            cart.pop(pid)
+
+    save_cart(cart)
+    return redirect("/cart")
+
+@app.route("/cart")
+def cart():
+    user = session.get("user")
+    if not user or user["role"] != "customer":
+        return redirect("/login")
+    data = get_data()
+    cart = get_cart()
+    products = data["products"]
+
+    cart_items = []
+    total = 0
+
+    for pid, qty in cart.items():
+        product = next((p for p in products if p["id"] == int(pid)), None)
+        if product:
+            item_total = product["price"] * qty
+            total += item_total
+            cart_items.append({
+                "product": product,
+                "qty": qty,
+                "total": item_total
+            })
+
+    return render_template(
+        "cart.html",
+        cart_items=cart_items,
+        total=total
+    )
+
+@app.route("/cart/remove/<int:product_id>")
+def cart_remove(product_id):
+    cart = get_cart()
+    cart.pop(str(product_id), None)
+    save_cart(cart)
+    return redirect("/cart")
+
+@app.route("/cart/clear")
+def cart_clear():
+    session.pop("cart", None)
+    return redirect("/cart")
+
 # ---------- Обратная связь ----------
 @app.route("/contact/send", methods=["POST"])
 def contact_send():
