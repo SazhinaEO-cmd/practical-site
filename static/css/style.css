@@ -35,7 +35,7 @@ body{
 .container{
   max-width: 1200px;
   margin:0 auto;
-  padding:40px 20px;
+  padding:20px;
 }
 
 /* header */
@@ -55,49 +55,106 @@ header .container{
   padding:14px 20px;
 }
 
-.logo{
-  font-weight:700;
-  letter-spacing:0.2px;
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
 }
-nav a{
-  color:white;
-  text-decoration:none;
-  margin-left:18px;
-  font-weight:600;
-  font-size: 16px;
-}
-nav a:hover{opacity:0.9}
 
-/* main */
-.main{
-  padding:20px 0;
-  background:linear-gradient(90deg,var(--brand-2) 0%, var(--brand) 100%);
+.logo {
+  font-size: 20px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.header-nav {
+  display: flex;
+  gap: 22px;
+  margin: 0 auto;
+}
+
+.header-nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.header-nav a:hover {
+  opacity: 0.85;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cart-link {
+  font-size: 20px;
+  text-decoration: none;
+  color: white;
+  position: relative;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background: var(--accent);
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.user-name {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.vision-btn {
+  padding: 6px 8px;
+  font-size: 16px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 6px;
+}
+
+/* hero */
+.hero {
+  padding:60px 0;
+  background:linear-gradient(90deg,var(--brand-2) 0%, var(--brand));
   color:white;
+  margin-top: 0;
 }
 
 .main-inner {
   display:flex;
   gap:48px;
   align-items:center;
-  justify-content:space-between
+  justify-content:space-between;
 }
 
 .main-text {
   max-width: 480px;
 }
 
-.main h1{
+.hero h1{
   margin:0;
-  font-size:32px;
-  line-height:1.1
+  font-size:36px;
+  line-height:1.1;
+  margin-bottom: 12px;
 }
-.main p{
+.hero p{
   margin:12px 0 20px;
   color:rgba(255,255,255,0.9)
 }
 .main-img{
-  width: 400px;
-  border-radius: 12px; 
+  width: 420px;
+  border-radius: 14px; 
   box-shadow: 0 4px 14px rgba(0,0,0,0.02);
 }
 
@@ -195,7 +252,7 @@ nav a:hover{opacity:0.9}
 }
 .btn:hover {
   background: var(--brand-2);
-  transform: translate(-2px);
+  transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
@@ -229,7 +286,7 @@ p{margin:0 0 12px}
 
 /* адаптивность */
 @media (max-width:800px){
-  .main .container{flex-direction:column;align-items:flex-start}
+  .hero .container{flex-direction:column;align-items:flex-start}
   nav a{margin-left:10px}
   .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
   .card img{height:120px}
@@ -383,22 +440,24 @@ p{margin:0 0 12px}
 .slider {
   width: 100%;
   position: relative;
-  margin-top: 40px;
+  background: #e7eaf1;
+  padding: 0;
 }
 
 .slider-wrapper {
   position: relative;
   height: 260px;
-  margin: 40px 0;
+  margin: 0 auto;
   overflow: hidden;
-  border-radius: 18px;
+  border-radius: 12px;
+  max-width: 1200px;
 }
 
 .slide {
   position: absolute;
   inset: 0;
   background-size: cover;
-  background-position: center center;
+  background-position: center;
   background-repeat: no-repeat;
   opacity: 0;
   transition: opacity 0.8s ease;
@@ -433,11 +492,19 @@ p{margin:0 0 12px}
   border-radius: 14px;
   text-align: left;
   max-width: 520px;
+  backdrop-filter: blur(4px);
 }
 
 .slide-overlay h2 {
   font-size: 32px;
   margin-bottom: 12px;
+}
+
+.top-links a {
+  color: white;
+  margin-right: 15px;
+  text-decoration: none;
+  font-weight: 500;
 }
 
 

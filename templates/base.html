@@ -3,25 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Магазин товаров для дома{% endblock %}</title>
-
-    <!-- базовый стиль -->
     <link id="theme-style" rel="stylesheet" href="/static/css/style.css">
-
-    {% if session.get("user") %}
-        <span>Вы вошли как {{ session.user.username }}</span>
-        <a href="/logout">Выход</a>
-    {% else %}
-        <a href="/login">Вход</a>
-    {% endif %}
-
-    <a href="/cart" class="cart-link">
-    🛒 Корзина
-    {% if session.cart %}
-        ({{ session.cart | length }})
-    {% endif %}
-</a>
-
 </head>
+
+<body>
+<header>
+    <div class="container header-inner">
+        <div class="logo">HomeStore</div>
+            <nav class="header-nav">
+                <a href="/">Главная</a>
+                <a href="/catalog">Каталог</a>
+                <a href="/delivery">Доставка и оплата</a>
+                <a href="/sales">Акции</a>
+                <a href="/about">О компании</a>
+                <a href="/contacts">Контакты</a>
+                <a href="/sitemap">Карта сайта</a>
+            </nav>
+            <div class="header-right">
+                <a href="/cart" class="cart-link">🛒{% if session.cart %}<span class="cart-badge">{{ session.cart | length }}</span>
+            {% endif %}
+                </a>
+                {% if session.get("user") %}
+                    <span class="user-name">Вы вошли как {{ session.user.username }}</span>
+                    <a href="/logout">Выход</a>
+                {% else %}
+                    <a href="/login">Вход</a>
+                {% endif %}
+                <button id="vision-toggle" class="btn vision-btn" style="margin-left: 12px;">👁️‍🗨️Версия для слабовидящих</button>
+            </div>  
+        </div>
+</header>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-col">© 2025 Сеть магазинов HomeStore</div>
+        <div class="footer-col">Все права защищены</div>
+    </div>
+</footer>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -41,36 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 4000);
 });
 </script>
-
-<body>
-<header>
-    <div class="container">
-        <div class="logo">HomeStore</div>
-    <nav>
-        <a href="/">Главная</a>
-        <a href="/catalog">Каталог</a>
-        <a href="/delivery">Доставка и оплата</a>
-        <a href="/sales">Акции</a>
-        <a href="/about">О компании</a>
-        <a href="/contacts">Контакты</a>
-        <a href="/sitemap">Карта сайта</a>
-        <a href="/login">Войти</a>
-        </nav>
-        <!-- КНОПКА для переключения -->
-        <button id="vision-toggle" class="btn" style="margin-left: 12px;">👁️‍🗨️Версия для слабовидящих</button>
-    </div>
-</header>
-
-<main>
-    {% block content %}{% endblock %}
-</main>
-
-<footer>
-    <div class="container">
-        <div class="footer-col">© 2025 Сеть магазинов HomeStore</div>
-        <div class="footer-col">Все права защищены</div>
-    </div>
-</footer>
 
 <script>
     const toggle = document.getElementById("vision-toggle");
