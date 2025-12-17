@@ -89,7 +89,19 @@ header .container{
 .header-right {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
+  white-space: nowrap;
+}
+
+.header-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.header-link:hover {
+  text-decoration: underline;
 }
 
 .cart-link {
@@ -105,22 +117,27 @@ header .container{
   right: -10px;
   background: var(--accent);
   color: white;
-  font-size: 12px;
+  font-size: 11px;
   padding: 2px 6px;
-  border-radius: 999px;
+  border-radius: 12px;
   font-weight: 700;
 }
 
 .user-name {
   font-size: 14px;
   opacity: 0.9;
+  color:white;
 }
 
 .vision-btn {
-  padding: 6px 8px;
-  font-size: 16px;
+  padding: 8px 10px;
+  font-size: 13px;
   background: rgba(255,255,255,0.15);
   border-radius: 6px;
+}
+
+.vision-btn:hover {
+  background: rgba(255,255,255,0.15);
 }
 
 /* hero */
@@ -435,13 +452,13 @@ p{margin:0 0 12px}
     box-shadow: 0 8px 18px rgba(0,0,0,0.08);
 }
 
-/* ===== Баннеры - слайдер ===== */
+/* Баннеры - слайдер  */
 
 .slider {
   width: 100%;
   position: relative;
   background: #e7eaf1;
-  padding: 0;
+  padding: 10px;
 }
 
 .slider-wrapper {

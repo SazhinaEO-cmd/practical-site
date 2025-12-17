@@ -25,9 +25,9 @@
                 </a>
                 {% if session.get("user") %}
                     <span class="user-name">Вы вошли как {{ session.user.username }}</span>
-                    <a href="/logout">Выход</a>
+                    <a href="/logout" class="header-link">Выход</a>
                 {% else %}
-                    <a href="/login">Вход</a>
+                    <a href="/login" class="header-link">Вход</a>
                 {% endif %}
                 <button id="vision-toggle" class="btn vision-btn" style="margin-left: 12px;">👁️‍🗨️Версия для слабовидящих</button>
             </div>  
