@@ -26,6 +26,10 @@
                 {% if session.get("user") %}
                     <span class="user-name">Вы вошли как {{ session.user.username }}</span>
                     <a href="/logout" class="header-link">Выход</a>
+                {% if session.user and session.user.role == "admin" %}
+                    <a href="/admin">Заказы</a>
+                {% endif %}
+
                 {% else %}
                     <a href="/login" class="header-link">Вход</a>
                 {% endif %}

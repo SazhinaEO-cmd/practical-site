@@ -1,9 +1,22 @@
 {% extends "base.html" %}
-{% block title %}Администрирование{% endblock %}
+{% block title %}Заказы{% endblock %}
 
 {% block content %}
 <section class="container">
-  <h1>Панель администратора</h1>
-  <p>Доступно только для администратора</p>
+    <h1>Заказы</h1>
+
+    {% for order in orders %}
+        <div class="card">
+            <p><b>Заказ №{{ order.id }}</b></p>
+            <p>Пользователь: {{ order.user }}</p>
+            <p>Дата: {{ order.date }}</p>
+            <p>Сумма: {{ order.total }} ₽</p>
+            <p>Статус: {{ order.status }}</p>
+        </div>
+    {% else %}
+        <p>Заказов пока нет</p>
+    {% endfor %}
 </section>
 {% endblock %}
+
+

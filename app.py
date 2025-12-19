@@ -1,6 +1,7 @@
 
 import json
 from flask import Flask, render_template, request, redirect, session, flash, abort
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = "practice-secret-key"
@@ -204,11 +205,74 @@ def admin():
     user = session.get("user")
     if not user or user["role"] != "admin":
         return redirect("/login")
-    return render_template("admin.html")
+    try:
+        with open("data/orders.json", "r", encoding="utf-8") as f:
+            orders = json.load(f)
+    except FileNotFoundError:
+        orders = []
+    return render_template("admin.html", orders = orders)
 
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template("404.html"), 404
+
+# ---------- Формирование заказа ----------
+@app.route("/order/create")
+def create_order():
+    if "user" not in session or "cart" not in session:
+        return redirect("/login")
+
+    # загрузка заказов
+    try:
+        with open("data/orders.json", "r", encoding="utf-8") as f:
+            orders = json.load(f)
+    except FileNotFoundError:
+        orders = []
+
+    data = get_data()
+    products = data["products"]
+
+    cart = session["cart"]
+    order_items = []
+    total = 0
+
+    for pid, qty in cart.items():
+        product = next((p for p in products if p["id"] == int(pid)), None)
+        if not product:
+            continue
+        sum_item = product["price"] * qty
+        total += sum_item
+
+        order_items.append({
+            "product_id": product["id"],
+            "name": product["name"],
+            "price": product["price"],
+            "qty": qty,
+            "sum": sum_item
+        })
+
+    order = {
+        "id": len(orders) + 1,
+        "user": session["user"]["username"],
+        "date": datetime.now().strftime("%Y-%m-%d %H:%M"),
+        "status": "оформлен",
+        "total": total,
+        "items": order_items
+    }
+
+    orders.append(order)
+
+    with open("data/orders.json", "w", encoding="utf-8") as f:
+        json.dump(orders, f, ensure_ascii=False, indent=2)
+
+    session.pop("cart", None)
+
+    return redirect("/order/success")
+
+@app.route("/order/success")
+def order_success():
+    return render_template("order_success.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
