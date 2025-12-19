@@ -7,22 +7,36 @@
 
     {% if cart_items %}
         {% for item in cart_items %}
-        <div class="card">
-            <div class="body">
-                <h4>{{ item.product.name }}</h4>
-                <p>Цена: {{ item.product.price }} ₽</p>
-                <p>Количество:<a href="/cart/dec/{{ item.product.id }}">−</a>{{ item.qty }}<a href="/cart/inc/{{ item.product.id }}">+</a></p>
-                <p><strong>Сумма: {{ item.total }} ₽</strong></p>
-                <a href="/cart/remove/{{ item.product.id }}" class="btn secondary">Удалить</a>
+        <div class="card cart-item">
+            <div class="body cart-body">
+                <div class="cart-info">
+                    <h4>{{ item.product.name }}</h4>
+                
+                    <div class="cart-row">
+                        <span>Количество:</span>
+                        <div class="qty-controls">
+                            <a href="/cart/dec/{{ item.product.id }}" class="qty-btn">−</a>
+                            <span class="qty">{{ item.qty }}</span>
+                            <a href="/cart/inc/{{ item.product.id }}" class="qty-btn">+</a>
+                        </div>
+                    </div>
+
+                    <div class="cart-row total">
+                        Сумма: {{ item.total }} ₽
+                    </div>
+                </div>
+
+                <a href="/cart/remove/{{ item.product.id }}" class="btn secondary cart-remove">Удалить</a>
             </div>
         </div>
         {% endfor %}
 
         <h3>Итого: {{ total }} ₽</h3>
-
-        <a href="/cart/clear" class="btn secondary">Очистить корзину</a>
-        <a href="/catalog" class="btn">Продолжить покупки</a>
-        <a href="#" class="btn">Оформить заказ</a>
+        <div class="cart-actions">
+            <a href="/cart/clear" class="btn secondary">Очистить корзину</a>
+            <a href="/catalog" class="btn">Продолжить покупки</a>
+            <a href="#" class="btn">Оформить заказ</a>
+        </div>
     {% else %}
         <p>Корзина пуста</p>
     {% endif %}
