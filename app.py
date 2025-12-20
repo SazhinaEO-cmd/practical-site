@@ -272,7 +272,42 @@ def create_order():
 @app.route("/order/success")
 def order_success():
     return render_template("order_success.html")
+# смена статуса заказа админ
+@app.route("/admin/order/status", methods=["POST"])
+def change_order_status():
+    order_id = int(request.form.get("order_id"))
+    new_status = request.form.get("status")
 
+    with open("data/orders.json", "r", encoding="utf-8") as f:
+        orders = json.load(f)
+
+    for order in orders:
+        if order["id"] == order_id:
+            order["status"] = new_status
+            break
+
+    with open("data/orders.json", "w", encoding="utf-8") as f:
+        json.dump(orders, f, ensure_ascii=False, indent=2)
+
+    return redirect("/admin")
+# отслеживание заказа
+@app.route("/orders")
+def my_orders():
+    user = session.get("user")
+    if not user or user["role"] != "customer":
+        return redirect("/login")
+
+    try:
+        with open("data/orders.json", encoding="utf-8") as f:
+            orders = json.load(f)
+    except FileNotFoundError:
+        orders = []
+
+    user_orders = [
+        o for o in orders if o["user"] == user["username"]
+    ]
+
+    return render_template("orders.html", orders=user_orders)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -6,12 +6,41 @@
     <h1>Заказы</h1>
 
     {% for order in orders %}
-        <div class="card">
-            <p><b>Заказ №{{ order.id }}</b></p>
-            <p>Пользователь: {{ order.user }}</p>
-            <p>Дата: {{ order.date }}</p>
-            <p>Сумма: {{ order.total }} ₽</p>
-            <p>Статус: {{ order.status }}</p>
+        <div class="card order-card">
+            <div class = "order-header">
+                <div>
+                    <h4>Заказ №{{ order.id }}</h4>
+                    <div class="order-meta">{{ order.user }} · {{ order.date }}</div>
+                </div>
+                <span class="status-badge status-{{ order.status|replace(' ','-') }}">{{ order.status }}</span>
+            </div>
+            <div class="order-items-block">
+                <h4>Состав заказа</h4>
+                <ul class="order-items">
+                    {% for item in order["items"] %}
+                    <li>
+                        <span class="item-name">{{ item.name }}</span>
+                        <span class="item-qty">× {{ item.qty }}</span>
+                        <span class="item-price">{{ item.sum }} ₽</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="order-summary">
+                    <span>Итого:</span>
+                    <span class="order-total">{{ order.total }} ₽</span>
+                </div>
+            </div>
+            <form method="post" action="/admin/order/status" class="order-actions">
+                <input type="hidden" name="order_id" value="{{ order.id }}">
+
+                <select name="status">
+                    <option {% if order.status == "оформлен" %}selected{% endif %}>оформлен</option>
+                    <option {% if order.status == "в обработке" %}selected{% endif %}>в обработке</option>
+                    <option {% if order.status == "отправлен" %}selected{% endif %}>отправлен</option>
+                    <option {% if order.status == "завершён" %}selected{% endif %}>завершён</option>
+                </select>
+                <button class="btn small">Сохранить</button>
+            </form>
         </div>
     {% else %}
         <p>Заказов пока нет</p>

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Мои заказы{% endblock %}
+
+{% block content %}
+<section class="container">
+    <h1>Мои заказы</h1>
+
+    {% if orders %}
+        {% for order in orders %}
+            <div class="card order-card">
+                <div class="order-header">
+                    <div>
+                        <h4>Заказ №{{ order.id }}</h4>
+                        <div class="order-meta">{{ order.date }}</div>
+                    </div>
+
+                    <span class="status-badge status-{{ order.status|replace(' ', '-') }}">
+                        {{ order.status }}
+                    </span>
+                </div>
+
+                <ul class="order-items">
+                    {% for item in order["items"] %}
+                        <li>
+                            <span class="item-name">{{ item.name }}</span>
+                            <span class="item-qty">× {{ item.qty }}</span>
+                            <span class="item-price">{{ item.sum }} ₽</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <div class="order-summary">
+                    <strong>Итого:</strong> {{ order.total }} ₽
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>У вас пока нет заказов</p>
+    {% endif %}
+</section>
+{% endblock %}
