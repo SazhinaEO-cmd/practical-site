@@ -18,10 +18,10 @@
                     {% endif %}
                     <div class="body">
                         <h4>{{ product.name }}</h4>
+                        <p>{{ product.price }} ₽</p>
                     </div>
                     <div class="actions">
-                        <span class="price">{{ product.price }} ₽</span>
-                        <a href="/product/{{ product.id }}" class="btn">Подробнее</a>
+                            <a href="/product/{{ product.id }}" class="btn">Подробнее</a>
                     </div>
                 </div>
             {% endfor %}

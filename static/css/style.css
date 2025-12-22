@@ -796,11 +796,6 @@ p{margin:0 0 12px}
   font-size: 15px;
 }
 
-.card .price {
-  font-size: 16px;
-  font-weight: 600;   /* вместо 700 */
-  color: var(--dark);
-}
 
 
 

@@ -10,10 +10,10 @@
             <img src="{{ url_for('static', filename='img/categories/' + c.img) }}" alt="{{ c.name }}">
             <div class="body">
                 <h4>{{ c.name }}</h4>
-                <div class="actions">
-                    <a class="btn" href="/catalog/{{ c.id }}">Перейти</a>
-                </div>
             </div>
+            <div class="actions">
+                <a  href="/catalog/{{ c.id }}" class="btn">Перейти</a>
+            </div>           
         </div>
         {% endfor %}
     </div>

@@ -12,10 +12,10 @@
             <div class="body">
                 <h4>{{ p.name }}</h4>
                 <p>{{ p.price }} ₽</p>
-                <div class="actions">
-                    <a class="btn" href="/product/{{ p.id }}">Подробнее</a>
-                </div>
             </div>
+            <div class="actions">
+                <a class="btn" href="/product/{{ p.id }}">Подробнее</a>
+            </div>       
         </div>
         {% endfor %}
     </div>

@@ -3,8 +3,8 @@
 
 {% block content %}
 <section class="container">
-
     <h1>Карта сайта</h1>
+    <h2>Основные страницы</h2>
     <ul class="new-list">
         <li><a href="/">Главная</a></li>
         <li><a href="/catalog">Каталог</a></li>
@@ -13,6 +13,22 @@
         <li><a href="/about">О компании</a></li>
         <li><a href="/contacts">Контакты</a></li>
     </ul>
+    <h2>Каталог</h2>
+        <ul class="new-list">
+        <li><a href="/catalog">Все категории товаров</a></li>
+        <li><a href="/search">Поиск по каталогу</a></li>
+    </ul>
+    <h2>Покупателям</h2>
+    <ul class="news-list">
+        <li><a href="/cart">Корзина</a></li>
+
+        {% if session.get("user") %}
+            <li><a href="/orders">Мои заказы</a></li>
+        {% else %}
+            <li><a href="/login">Вход в личный кабинет</a></li>
+        {% endif %}
+    </ul>
+</br>
     <a href="/" class="btn secondary">Вернуться на главную</a>
 </section>
 {% endblock %}
