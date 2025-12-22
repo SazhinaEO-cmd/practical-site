@@ -42,6 +42,17 @@
 </header>
 
 <main class="page-content">
+    <div class="container">
+        <form action="/search" method="get" class="catalog-search">
+            <input
+                type="text"
+                name="q"
+                placeholder="Поиск по каталогу"
+                value="{{ request.args.get('q', '') }}"
+                required>
+            <button class="btn">Найти</button>
+        </form>
+    </div>
     {% block content %}{% endblock %}
 </main>
 

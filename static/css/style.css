@@ -779,6 +779,28 @@ p{margin:0 0 12px}
   font-size: 15px;
   width: 260px;
 }
+/*поисковик*/
+
+.catalog-search {
+  display: flex;
+  gap: 8px;
+  max-width: 600px;
+  margin: 8px auto;
+}
+
+.catalog-search input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d0d4dd;
+  font-size: 15px;
+}
+
+.card .price {
+  font-size: 16px;
+  font-weight: 600;   /* вместо 700 */
+  color: var(--dark);
+}
 
 
 

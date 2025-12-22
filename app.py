@@ -308,6 +308,27 @@ def my_orders():
     ]
 
     return render_template("orders.html", orders=user_orders)
+# поисковик
+@app.route("/search")
+def search():
+    query = request.args.get("q", "").strip().lower()
+
+    data = get_data()
+    products = data["products"]
+
+    results = []
+    if query:
+        results = [
+            p for p in products
+            if query in p["name"].lower()
+        ]
+
+    return render_template(
+        "catalog/search.html",
+        query=query,
+        results=results
+    )
+
 
 if __name__ == "__main__":
     app.run(debug=True)

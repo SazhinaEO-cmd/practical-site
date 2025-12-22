@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Поиск{% endblock %}
+
+{% block content %}
+<section class="container">
+    <h1>Результаты поиска</h1>
+
+    {% if query %}
+        <p>Запрос: <strong>{{ query }}</trong></p>
+    {% endif %}
+
+    {% if results %}
+        <div class="grid">
+            {% for product in results %}
+                <div class="card">
+                    {% if product.image %}
+                        <img src="{{ url_for('static', filename='img/products/' + product.image) }}" alt="{{ product.name }}">
+                    {% endif %}
+                    <div class="body">
+                        <h4>{{ product.name }}</h4>
+                    </div>
+                    <div class="actions">
+                        <span class="price">{{ product.price }} ₽</span>
+                        <a href="/product/{{ product.id }}" class="btn">Подробнее</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Ничего не найдено</p>
+    {% endif %}
+</section>
+{% endblock %}
