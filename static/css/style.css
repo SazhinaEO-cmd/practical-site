@@ -150,18 +150,72 @@ header .container{
   color:white;
 }
 
-.vision-btn {
-  padding: 8px 10px;
-  font-size: 13px;
-  background: rgba(255,255,255,0.12);
-  color: white;
-  border: 0;
-  border-radius: 6px;
-  font-weight: 500;
+/* scope: переключатель только внутри header.accessibility-nav */
+header .accessibility-nav {
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+  position: relative;
+  z-index: 500; /* чтобы всегда быть над слайдами и элементами */
 }
 
-.vision-btn:hover {
-  background: rgba(255,255,255,0.2);
+header .accessibility-nav .vision-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  color: #fff; /
+}
+
+/* переключатель (только под header .accessibility-nav) */
+header .accessibility-nav .switch {
+  position: relative;
+  width: 56px;
+  height: 30px;
+  display: inline-block;
+}
+
+header .accessibility-nav .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+header .accessibility-nav .slider {
+  position: absolute;
+  inset: 0;
+  background-color: #ccc;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 2px solid #000;
+}
+
+header .accessibility-nav .slider::before {
+  content: "";
+  position: absolute;
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  top: 2px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.3s;
+  border: 2px solid #000;
+}
+
+header .accessibility-nav .switch input:checked + .slider {
+  background-color: var(--accent, #0038FF);
+}
+
+header .accessibility-nav .switch input:checked + .slider::before {
+  transform: translateX(26px);
+}
+
+/* если по какой-то причине switch окажется в слайде — скрываем */
+.slider-wrapper .switch,
+.slide .switch {
+  display: none !important;
 }
 
 /* hero */

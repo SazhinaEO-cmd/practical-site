@@ -10,7 +10,7 @@
 <header>
     <div class="container header-inner">
         <div class="logo">HomeStore</div>
-            <nav class="header-nav">
+            <nav class="header-nav" aria-label="Основная навигация">
                 <a href="/">Главная</a>
                 <a href="/catalog">Каталог</a>
                 <a href="/delivery">Доставка и оплата</a>
@@ -20,11 +20,11 @@
                 <a href="/sitemap">Карта сайта</a>
             </nav>
             <div class="header-right">
-                <a href="/cart" class="cart-link">🛒{% if session.cart %}<span class="cart-badge">{{ session.cart | length }}</span>
+                <a href="/cart" class="cart-link" aria-label="Корзина">🛒{% if session.cart %}<span class="cart-badge">{{ session.cart | length }}</span>
             {% endif %}
                 </a>
                 {% if session.get("user") %}
-                    <span class="user-name">Вы вошли как {{ session.user.username }}</span>
+                    <span class="user-name">Вы: {{ session.user.username }}</span>
                     <a href="/logout" class="header-link">Выход</a>
                 {% if session.get("user") and session.user.role == "customer" %}
                     <a href="/orders" class="header-link">Мои заказы</a>
@@ -36,7 +36,22 @@
                 {% else %}
                     <a href="/login" class="header-link">Вход</a>
                 {% endif %}
-                <button id="vision-toggle" class="btn vision-btn" style="margin-left: 12px;">👁️‍🗨️Версия для слабовидящих</button>
+                <nav class="accessibility-nav" aria-label="Настройки отображения">
+                <div class="vision-toggle" role="region" aria-label="Переключатель версии для слабовидящих">
+                    <span id="vision-label" class="vision-label">Обычная версия</span>
+
+                    <label class="switch" title="Включить версию для слабовидящих">
+                    <input
+                        type="checkbox"
+                        id="vision-mode-toggle"
+                        role="switch"
+                        aria-checked="false"
+                        aria-labelledby="vision-label"
+                    >
+                    <span class="slider" aria-hidden="true"></span>
+                    </label>
+                </div>
+                </nav>
             </div>  
         </div>
 </header>
@@ -83,18 +98,41 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <script>
-    const toggle = document.getElementById("vision-toggle");
-    const theme = document.getElementById("theme-style");
+document.addEventListener("DOMContentLoaded", () => {
+  const checkbox = document.getElementById("vision-mode-toggle");
+  const label = document.getElementById("vision-label");
+  const themeLink = document.getElementById("theme-style");
 
-    toggle.addEventListener("click", () => {
-        const current = theme.getAttribute("href");
+  if (!checkbox || !themeLink || !label) return;
 
-        if (current === "/static/css/style.css") {
-            theme.setAttribute("href", "/static/css/vision.css");
-        } else {
-            theme.setAttribute("href", "/static/css/style.css");
-        }
-    });
+  // загрузка сохранённого режима (значения: "on" / "off")
+  const saved = localStorage.getItem("vision-mode");
+
+  const applyMode = (on) => {
+    if (on) {
+      themeLink.setAttribute("href", "/static/css/vision.css");
+      checkbox.checked = true;
+      checkbox.setAttribute("aria-checked", "true");
+      label.textContent = "Версия для слабовидящих";
+    } else {
+      themeLink.setAttribute("href", "/static/css/style.css");
+      checkbox.checked = false;
+      checkbox.setAttribute("aria-checked", "false");
+      label.textContent = "Обычная версия";
+    }
+  };
+
+  // приминение сохранённого режима, если есть
+  applyMode(saved === "on");
+
+  // переключение и сохранение
+  checkbox.addEventListener("change", () => {
+    const on = checkbox.checked;
+    applyMode(on);
+    localStorage.setItem("vision-mode", on ? "on" : "off");
+  });
+
+});
 </script>
 
 </body>

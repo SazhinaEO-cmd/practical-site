@@ -24,26 +24,9 @@ body{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.skip-link{
-  position: absolute;
-  left: -999px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-.skip-link:focus {
-  left: 8px;
-  top: 8px;
-  width: auto;
-  height: auto;
-  padding: 8px 12px;
-  background: var(--accent);
-  color: #fff;
-  border-radius: 6px;
-  z-index: 9999;
+
+a {
   text-decoration: none;
-  display: inline-block;
 }
 
 .container{
@@ -60,6 +43,13 @@ header{
   z-index: 100;
 }
 
+.header-inner {
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto 1fr auto;
+  gap: 24px;
+}
+
 header .container{
   display:flex;
   align-items: center;
@@ -71,16 +61,22 @@ header .container{
 .header-nav {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
   flex-wrap: nowrap;
+  white-space: nowrap;
 }
-.header-nav a {
+.header-nav a, .header-link {
   color: var(--text);
-  text-decoration: underline;
   font-weight: 700;
   font-size: 18px;
   padding: 6px;
   white-space: nowrap;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 /* крупные кнопки */
@@ -224,4 +220,72 @@ input[type="text"], input[type="number"], select, textarea {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 24px;
+}
+
+/* scope: переключатель только внутри header.accessibility-nav */
+header .accessibility-nav {
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+  position: relative;
+  z-index: 500; /* чтобы всегда быть над слайдами и элементами */
+}
+
+header .accessibility-nav .vision-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  color: var(--text); 
+}
+
+/* переключатель (только под header .accessibility-nav) */
+header .accessibility-nav .switch {
+  position: relative;
+  width: 56px;
+  height: 30px;
+  display: inline-block;
+}
+
+header .accessibility-nav .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+header .accessibility-nav .slider {
+  position: absolute;
+  inset: 0;
+  background-color: #ccc;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 2px solid #000;
+}
+
+header .accessibility-nav .slider::before {
+  content: "";
+  position: absolute;
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  top: 2px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.3s;
+  border: 2px solid #000;
+}
+
+header .accessibility-nav .switch input:checked + .slider {
+  background-color: var(--accent, #0038FF);
+}
+
+header .accessibility-nav .switch input:checked + .slider::before {
+  transform: translateX(26px);
+}
+
+/* если по какой-то причине switch окажется в слайде — скрываем */
+.slider-wrapper .switch,
+.slide .switch {
+  display: none !important;
 }
