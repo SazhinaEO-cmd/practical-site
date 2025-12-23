@@ -70,8 +70,9 @@ header .container{
 
 .header-nav {
   display: flex;
-  gap: 18px;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: nowrap;
 }
 .header-nav a {
   color: var(--text);
@@ -79,6 +80,7 @@ header .container{
   font-weight: 700;
   font-size: 18px;
   padding: 6px;
+  white-space: nowrap;
 }
 
 /* крупные кнопки */
@@ -99,6 +101,10 @@ header .container{
 a:focus, button:focus, input:focus, select:focus, textarea:focus {
   outline: 3px solid var(--accent);
   outline-offset: 3px;
+}
+
+.header-nav .btn {
+  white-space: nowrap;
 }
 
 /* крупные карточки */
@@ -185,4 +191,37 @@ input[type="text"], input[type="number"], select, textarea {
   header .container { padding: 10px; }
   .card img { height: 160px; }
   .catalog-search { padding: 0 8px; width: calc(100% - 16px); }
+  .main-inner {grid-template-columns: 1fr;}
+  .main-img { max-height: 240px;}
+}
+
+.hero {
+  border-bottom: 3px solid var(--border);
+  padding: 32px 0;
+}
+
+.main-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.main-text h1 {
+  margin-top: 0;
+  font-size: 32px;
+}
+
+.main-img {
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 3px solid var(--border);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
 }
