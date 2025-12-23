@@ -242,9 +242,9 @@ header .accessibility-nav .vision-toggle {
 /* переключатель (только под header .accessibility-nav) */
 header .accessibility-nav .switch {
   position: relative;
-  width: 56px;
-  height: 30px;
-  display: inline-block;
+  width: 64px;
+  height: 36px;
+  flex-shrink: 0;
 }
 
 header .accessibility-nav .switch input {
@@ -256,10 +256,9 @@ header .accessibility-nav .switch input {
 header .accessibility-nav .slider {
   position: absolute;
   inset: 0;
-  background-color: #ccc;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: 0.3s;
+  background-color: #e0e0e0;
+  border-radius: 36px;
+  transition: background-color 0.3s;
   border: 2px solid #000;
 }
 
