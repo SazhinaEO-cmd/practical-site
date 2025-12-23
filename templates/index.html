@@ -3,13 +3,20 @@
 
 {% block content %}
 <section class="hero">
-    <div class="container main-inner">
-        <div class="main-text">
-            <h1>Сеть магазинов товаров для дома</h1>
-            <p>Товары для уюта, декора вашего дома</p>
-            <a class="btn" href="/catalog">Перейти в каталог</a>
+    <div class="container hero-inner">
+        <div class="hero-left">
+            <div class="hero-caption">
+                <h1>Сеть магазинов товаров для дома HomeStore</h1>
+                <p class="hero-sub">Уют, декор и мелочи, которые делают дом тёплее</p>
+            </div>
+            <div class="hero-ctas">
+                <a class="btn btn-primary" href="/catalog">Перейти в каталог</a>
+                <a class="btn btn-outline" href="/sales">Акции</a>
+            </div>
         </div>
-        <img src="/static/img/main.jpg" alt="Товары для дома" class="main-img">
+        <div class="hero-right">
+            <img src="/static/img/main.jpg" alt="Товары для дома-посуда и текстиль" class="main-img">
+        </div>
     </div>
 </section>
 

@@ -39,7 +39,7 @@
                     <option {% if order.status == "отправлен" %}selected{% endif %}>отправлен</option>
                     <option {% if order.status == "завершён" %}selected{% endif %}>завершён</option>
                 </select>
-                <button class="btn small">Сохранить</button>
+                <button class="btn">Сохранить</button>
             </form>
         </div>
     {% else %}
@@ -47,5 +47,3 @@
     {% endfor %}
 </section>
 {% endblock %}
-
-
