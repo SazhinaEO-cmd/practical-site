@@ -2,6 +2,7 @@
 import json
 from flask import Flask, render_template, request, redirect, session, flash, abort
 from datetime import datetime
+import random
 
 app = Flask(__name__)
 app.secret_key = "practice-secret-key"
@@ -19,7 +20,12 @@ def load_users():
 @app.route("/")
 def index():
     data = get_data()
-    return render_template("index.html", news=data.get("news", []), sales=data.get("sales", []), categories=data.get("categories", []), vision_mode=False)
+    categories = data.get("categories", [])
+    if len(categories) >= 3:
+        categories_random = random.sample(categories, 3)
+    else:
+        categories_random = categories
+    return render_template("index.html", news=data.get("news", []), sales=data.get("sales", []), categories=categories_random, vision_mode=False)
 
 @app.route("/vision")
 def vision():

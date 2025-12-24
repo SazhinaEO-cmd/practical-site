@@ -7,6 +7,7 @@
 </head>
 
 <body class="page">
+    <a href="#main-content" class="skip-link">Перейти к основному содержимому</a>
 <header>
     <div class="container header-inner">
         <div class="logo">HomeStore</div>
@@ -56,7 +57,7 @@
         </div>
 </header>
 
-<main class="page-content">
+<main id="main-content" class="page-content">
     <div class="container">
         <form action="/search" method="get" class="catalog-search">
             <input
@@ -77,26 +78,58 @@
         <div class="footer-col">Все права защищены</div>
     </div>
 </footer>
-
+<!--Баннеры-->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     const slides = document.querySelectorAll(".slide");
+    const dotsContainer = document.querySelector(".slider-dots");
+    const prevBtn = document.querySelector(".slider-arrow.prev");
+    const nextBtn = document.querySelector(".slider-arrow.next");
     let current = 0;
+    let timer;
 
-    slides.forEach(slide => {
+    slides.forEach((slide, i) => {
         slide.style.backgroundImage = `url(${slide.dataset.bg})`;
+
+        const dot = document.createElement("div");
+        dot.className = "slider-dot" + (i === 0 ? " active" : "");
+        dot.addEventListener("click", () => goTo(i));
+        dotsContainer.appendChild(dot);
     });
 
-    if (slides.length <= 1) return;
+    const dots = document.querySelectorAll(".slider-dot");
 
-    setInterval(() => {
+    function goTo(index) {
         slides[current].classList.remove("active");
-        current = (current + 1) % slides.length;
+        dots[current].classList.remove("active");
+
+        current = index;
+
         slides[current].classList.add("active");
-    }, 4000);
+        dots[current].classList.add("active");
+        resetTimer();
+    }
+
+    function next() {
+        goTo((current + 1) % slides.length);
+    }
+
+    function prev() {
+        goTo((current - 1 + slides.length) % slides.length);
+    }
+
+    function resetTimer() {
+        clearInterval(timer);
+        timer = setInterval(next, 5000);
+    }
+
+    nextBtn.addEventListener("click", next);
+    prevBtn.addEventListener("click", prev);
+
+    timer = setInterval(next, 5000);
 });
 </script>
-
+<!--версия слабовидящих-->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const checkbox = document.getElementById("vision-mode-toggle");

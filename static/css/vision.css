@@ -288,3 +288,18 @@ header .accessibility-nav .switch input:checked + .slider::before {
 .slide .switch {
   display: none !important;
 }
+
+.skip-link:focus {
+  left: 16px;
+  top: 16px;
+  width: auto;
+  height: auto;
+  padding: 12px 18px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 6px;
+  z-index: 1000;
+  text-decoration: none;
+}

@@ -22,18 +22,21 @@
 
 <!--Баннеры-->
 <section class="slider">
+    <button class="slider-arrow prev" aria-label="Предыдущий баннер">‹</button>
     <div class="slider-wrapper">
         {% for s in sales %}
             <a href="/sales" class="slide {% if loop.first %}active{% endif %}" data-bg="{{ url_for('static', filename='img/sales/' ~ s.image) }}">
             </a>
         {% endfor %}
     </div>
+    <button class="slider-arrow next" aria-label="Следующий баннер">›</button>
+    <div class="slider-dots"></div>
 </section>
 
 <!-- Популярные категории -->
 <section class="container">
     <h2>Популярные категории</h2>
-    <div class="grid">
+    <div class="grid popular-grid">
         {% for c in categories %}
         <div class="card">
             <img src="{{ url_for('static', filename='img/categories/' ~ c.img) }}" alt="{{ c.name }}">
@@ -49,12 +52,32 @@
 </section>
 
 <!-- Преимущества сети магазинов -->
-<section class="benefits">
-    <div class="container benefits-row">
-        <div class="benefit-item">💳 Удобные способы оплаты</div>
-        <div class="benefit-item">🚚 Быстрая доставка</div>
-        <div class="benefit-item">🛒 Большой выбор товаров</div>
-        <div class="benefit-item">💬 Поддержка покупателей</div>
+<section class="benefits" aria-labelledby="benefits-title">
+    <div class="container">
+        <h2 id="benefits-title class="benefits-title">Почему покупают у нас</h2>
+        <p class="benefits-subtitle">Удобно, надёжно и с заботой о покупателях</p>
+        <div class="benefits-row">
+            <div class="benefit-card">
+                <div class="benefit-icon">💳</div>
+                <h3 class="benefit-title">Удобная оплата</h3>
+                <p class="benefit-text">Карты, переводы и онлайн-оплата без лишних шагов</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🚚</div>
+                <h3 class="benefit-title">Быстрая доставка</h3>
+                <p class="benefit-text">Доставляем заказы максимально оперативно</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🛒</div>
+                <h3 class="benefit-title">Большой выбор</h3>
+                <p class="benefit-text">Тысячи товаров для дома и повседневной жизни</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">💬</div>
+                <h3 class="benefit-title">Поддержка</h3>
+                <p class="benefit-text"> Мы всегда на связи и готовы помочь</p>
+            </div>
+        </div>
     </div>
 </section>
 
