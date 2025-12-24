@@ -4,14 +4,11 @@
 {% block content %}
 <section class="container">
     <h1>Акции и специальные предложения</h1>
-    <div class="grid">
+    <div class="news-list">
         {% for s in sales %}
-        <div class="card">
-            <img src="{{ url_for('static', filename='img/sales/' ~ s.image) }}" alt="{{ s.title }}">
-            <div class="body">
-                <h4>{{ s.title }}</h4>
-                <p>{{ s.text }}</p>
-            </div>
+        <div class="news-card">
+            <h4 class="news-card-title">{{ s.title }}</h4>
+            <p class="news-text">{{ s.text }}</p>
         </div>
         {% endfor %}
     </div>

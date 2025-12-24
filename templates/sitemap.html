@@ -2,33 +2,54 @@
 {% block title %}Карта сайта{% endblock %}
 
 {% block content %}
-<section class="container">
-    <h1>Карта сайта</h1>
-    <h2>Основные страницы</h2>
-    <ul class="news-list">
-        <li><a href="/">Главная</a></li>
-        <li><a href="/catalog">Каталог</a></li>
-        <li><a href="/delivery">Доставка и оплата</a></li>
-        <li><a href="/sales">Акции</a></li>
-        <li><a href="/about">О компании</a></li>
-        <li><a href="/contacts">Контакты</a></li>
-    </ul>
-    <h2>Каталог</h2>
-        <ul class="news-list">
-        <li><a href="/catalog">Все категории товаров</a></li>
-        <li><a href="/search">Поиск по каталогу</a></li>
-    </ul>
-    <h2>Покупателям</h2>
-    <ul class="news-list">
-        <li><a href="/cart">Корзина</a></li>
+<section class="container sitemap">
+    <h1 class="sitemap-title">Карта сайта</h1>
+    <p class="sitemap-subtitle">Быстрая навигация по основным разделам сайта</p>
+    <div class="grid sitemap-grid">
+        <div class="card sitemap-card">
+            <div class="body">
+                <h3>Основные страницы</h3>
+                <ul class="sitemap-list">
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="/catalog">Каталог</a></li>
+                    <li><a href="/delivery">Доставка и оплата</a></li>
+                    <li><a href="/sales">Акции</a></li>
+                    <li><a href="/about">О компании</a></li>
+                    <li><a href="/contacts">Контакты</a></li>
+                </ul>
+            </div>
+        </div>
 
-        {% if session.get("user") %}
-            <li><a href="/orders">Мои заказы</a></li>
-        {% else %}
-            <li><a href="/login">Вход в личный кабинет</a></li>
-        {% endif %}
-    </ul>
-</br>
-    <a href="/" class="btn secondary">Вернуться на главную</a>
+        <!-- Каталог -->
+        <div class="card sitemap-card">
+            <div class="body">
+                <h3>Каталог</h3>
+                <ul class="sitemap-list">
+                    <li><a href="/catalog">Все категории товаров</a></li>
+                    <li><a href="/search">Поиск по каталогу</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Покупателям -->
+        <div class="card sitemap-card">
+            <div class="body">
+                <h3>Покупателям</h3>
+                <ul class="sitemap-list">
+                    <li><a href="/cart">Корзина</a></li>
+
+                    {% if session.get("user") %}
+                        <li><a href="/orders">Мои заказы</a></li>
+                    {% else %}
+                        <li><a href="/login">Вход в личный кабинет</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div style="text-align:center; margin-top: 32px;">
+        <a href="/" class="btn secondary">Вернуться на главную</a>
+    </div>
+    
 </section>
 {% endblock %}
