@@ -20,12 +20,20 @@ def load_users():
 @app.route("/")
 def index():
     data = get_data()
+    # --- 3 случайные категории ---
     categories = data.get("categories", [])
     if len(categories) >= 3:
         categories_random = random.sample(categories, 3)
     else:
         categories_random = categories
-    return render_template("index.html", news=data.get("news", []), sales=data.get("sales", []), categories=categories_random, vision_mode=False)
+    # --- сортировка новостей от новых к старым ---
+    news = data.get("news", [])
+    news_sorted = sorted(
+        news,
+        key=lambda n: datetime.strptime(n["date"], "%Y-%m-%d"),
+        reverse=True
+    )
+    return render_template("index.html", news=news_sorted, sales=data.get("sales", []), categories=categories_random, vision_mode=False)
 
 @app.route("/vision")
 def vision():
@@ -80,6 +88,18 @@ def page_not_found(e):
 @app.route("/sitemap")
 def sitemap():
     return render_template("sitemap.html", vision_mode=False)
+
+@app.route("/news/<int:news_id>")
+def news_detail(news_id):
+    data = get_data()
+    news_list = data.get("news", [])
+
+    news_item = next((n for n in news_list if n["id"] == news_id), None)
+
+    if not news_item:
+        abort(404)
+
+    return render_template("news_detail.html", news=news_item)
 
 # ---------- Корзина ----------
 

@@ -303,3 +303,12 @@ header .accessibility-nav .switch input:checked + .slider::before {
   z-index: 1000;
   text-decoration: none;
 }
+
+.news-hidden {
+  display: none;
+}
+
+.news-more {
+  margin-top: 24px;
+  text-align: center;
+}

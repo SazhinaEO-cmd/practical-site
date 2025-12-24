@@ -54,7 +54,7 @@
 <!-- Преимущества сети магазинов -->
 <section class="benefits" aria-labelledby="benefits-title">
     <div class="container">
-        <h2 id="benefits-title class="benefits-title">Почему покупают у нас</h2>
+        <h2 id="benefits-title" class="benefits-title">Почему покупают у нас</h2>
         <p class="benefits-subtitle">Удобно, надёжно и с заботой о покупателях</p>
         <div class="benefits-row">
             <div class="benefit-card">
@@ -82,12 +82,37 @@
 </section>
 
 <!-- Новости -->
-<section class="container" style="margin-top: 40px">
-    <h2>Новости</h2>
-    <ul class="news-list">
-        {% for n in news %}
-        <li><strong>{{ n.title }}</strong> — {{ n.date }}</li>
-        {% endfor %}
-    </ul>
+<section class="news-section">
+  <div class="container">
+    <h2 class="news-title">Новости магазина</h2>
+    <p class="news-subtitle">Актуальные события, акции и обновления</p>
+
+    <div class="news-list">
+      {% for n in news %}
+      <article class="news-card {% if loop.index > 3 %}news-hidden{% endif %}">
+        <div class="news-date">
+          {{ n.date }}
+        </div>
+
+        <h3 class="news-card-title">
+          {{ n.title }}
+        </h3>
+
+        <p class="news-text">
+          {{ n.text[:100] }}{% if n.text|length > 100 %}…{% endif %}
+        </p>
+
+        <a href="/news/{{ n.id }}" class="news-link">
+          Читать полностью →
+        </a>
+      </article>
+      {% endfor %}
+    </div>
+        {% if news|length > 3 %}
+    <div class="news-more">
+        <button class="btn" id="show-more-news">Показать ещё</button>
+    </div>
+    {% endif %}
+  </div>
 </section>
 {% endblock %}
