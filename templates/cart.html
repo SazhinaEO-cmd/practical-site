@@ -6,30 +6,31 @@
     <h1>Корзина</h1>
 
     {% if cart_items %}
-        {% for item in cart_items %}
-        <div class="card cart-item">
-            <div class="body cart-body">
-                <div class="cart-info">
-                    <h4>{{ item.product.name }}</h4>
-                
-                    <div class="cart-row">
-                        <span>Количество:</span>
-                        <div class="qty-controls">
-                            <a href="/cart/dec/{{ item.product.id }}" class="qty-btn">−</a>
-                            <span class="qty">{{ item.qty }}</span>
-                            <a href="/cart/inc/{{ item.product.id }}" class="qty-btn">+</a>
+    <div class="card cart-item">
+        <div class="body cart-body">
+            {% for item in cart_items %}
+                <div class="cart-row-item">
+                    <div class="cart-info">
+                        <h4>{{ item.product.name }}</h4>
+                        <div class="cart-row">
+                            <span>Количество:</span>
+                            <div class="qty-controls">
+                                <a href="/cart/dec/{{ item.product.id }}" class="qty-btn">−</a>
+                                <span class="qty">{{ item.qty }}</span>
+                                <a href="/cart/inc/{{ item.product.id }}" class="qty-btn">+</a>
+                            </div>
+                        </div>
+
+                        <div class="cart-row total">
+                            Сумма: {{ item.total }} ₽
                         </div>
                     </div>
-
-                    <div class="cart-row total">
-                        Сумма: {{ item.total }} ₽
-                    </div>
-                </div>
-
-                <a href="/cart/remove/{{ item.product.id }}" class="btn secondary cart-remove">Удалить</a>
+                    <a href="/cart/remove/{{ item.product.id }}" class="btn secondary cart-remove">Удалить</a> 
+                </div> 
+            {% endfor %}
             </div>
         </div>
-        {% endfor %}
+        
 
         <h3>Итого: {{ total }} ₽</h3>
         <div class="cart-actions">

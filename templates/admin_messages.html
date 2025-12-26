@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Сообщения{% endblock %}
+
+{% block content %}
+<section class="container messages-page">
+
+<h1>Диалоги покупателей</h1>
+
+{% for d in messages %}
+  <div class="card dialog-card {{ d.get('status','open') }}">
+
+    <div class="dialog-header">
+      <div class="dialog-main">
+        <strong class="dialog-topic">Тема: {{ d.topic }}</strong>
+        <div class="dialog-meta">От: {{ d.from.username }} • {{ d.messages[-1].date }}</div>
+      </div>
+
+      <button type="button" class="btn dialog-toggle" data-dialog="{{ d.id }}">
+        {{ "Развернуть" if d.get('status','open') == "closed" else "Свернуть" }}
+      </button>
+    </div>
+
+    <div class="dialog-body {% if d.get('status','open') == 'closed' %}news-hidden{% endif %}" id="dialog-{{ d.id }}">
+      {% for msg in d.messages %}
+        <div class="dialog-message {{ 'admin' if msg.username == 'admin' else 'customer' }}">
+          <div class="dialog-author">{{ msg.username }}</div>
+          <p>{{ msg.text }}</p>
+          <span class="news-date">{{ msg.date }}</span>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if d.get('status','open') == "open" %}
+      <form method="post" action="/admin/messages/answer/{{ d.id }}" class="message-form">
+        <textarea name="answer" placeholder="Введите ответ…" required></textarea>
+        <div class="message-actions"><button class="btn btn-send" type="submit">Отправить</button></div>
+      </form>
+
+      <form method="post" action="/admin/messages/close/{{ d.id }}" class="message-actions">
+        <button class="btn btn-send btn-danger" type="submit">Закрыть диалог</button>
+      </form>
+      
+    {% else %}
+      <p class="dialog-closed"><em>Диалог закрыт</em></p>
+    {% endif %}
+
+  </div>
+{% endfor %}
+
+</section>
+{% endblock %}

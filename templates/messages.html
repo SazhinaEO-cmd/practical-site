@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Сообщения{% endblock %}
+
+{% block content %}
+<section class="container messages-page">
+
+  <h1>Сообщения</h1>
+
+  {% if messages %}
+    {% for m in messages %}
+      <div class="card dialog-card">
+
+        <div class="dialog-header">
+          <strong class="dialog-topic">Тема: {{ m.topic }}</strong>
+          <button type="button" class="btn dialog-toggle" data-dialog="{{ m.id }}">
+            Свернуть
+          </button>
+        </div>
+
+        <div class="dialog-body" id="dialog-{{ m.id }}">
+          {% for item in m.messages %}
+            <div class="dialog-message {{ item.username }}">
+              <strong>{{ "Вы" if item.username == session.user.username else "Администратор" }}</strong>
+              <p>{{ item.text }}</p>
+              <span class="news-date">{{ item.date }}</span>
+            </div>
+          {% endfor %}
+        </div>
+
+        {% if m.get("status", "open") == "open" %}
+          <form method="post" action="/messages/send/{{ m.id }}" class="message-form">
+            <textarea name="message" placeholder="Ваш ответ" required></textarea>
+            <button class="btn" type="submit">Отправить</button>
+          </form>
+        {% else %}
+          <p class="dialog-closed">Диалог закрыт</p>
+        {% endif %}
+
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>Сообщений пока нет.</p>
+  {% endif %}
+
+  <form method="post" action="/messages/create" class="contact-form message-form">
+    <p>Создать новый диалог</p>
+    <input name="topic" placeholder="Тема сообщения" required>
+    <textarea name="message" placeholder="Сообщение" required></textarea>
+    <button class="btn" type="submit">Создать диалог</button>
+  </form>
+
+</section>
+{% endblock %}

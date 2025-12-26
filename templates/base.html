@@ -27,13 +27,6 @@
                 {% if session.get("user") %}
                     <span class="user-name">Вы: {{ session.user.username }}</span>
                     <a href="/logout" class="header-link">Выход</a>
-                {% if session.get("user") and session.user.role == "customer" %}
-                    <a href="/orders" class="header-link">Мои заказы</a>
-                {% endif %}
-                {% if session.user and session.user.role == "admin" %}
-                    <a href="/admin" class="header-link">Заказы</a>
-                {% endif %}
-
                 {% else %}
                     <a href="/login" class="header-link">Вход</a>
                 {% endif %}
@@ -56,18 +49,33 @@
             </div>  
         </div>
 </header>
-
+{% if session.get("user") %}
+<nav class="subnav">
+    <div class="subnav-inner">
+        {% if session.user.role == "customer" %}
+            <a href="/orders">Мои заказы</a>
+            <a href="/messages">Сообщения{% if new_messages %}<span class="badge">{{ new_messages }}</span>{% endif %}</a>
+        {% endif %}
+        {% if session.user.role == "admin" %}
+            <a href="/admin">Заказы{% if new_orders %}<span class="badge">{{ new_orders }}</span>{% endif %}</a> 
+            <a href="/admin/messages">Сообщения{% if new_messages %}<span class="badge">{{ new_messages }}</span>{% endif %}</a>
+        {% endif %}
+    </div>
+</nav>
+{% endif %}
 <main id="main-content" class="page-content">
     <div class="container">
-        <form action="/search" method="get" class="catalog-search">
-            <input
-                type="text"
-                name="q"
-                placeholder="Поиск по каталогу"
-                value="{{ request.args.get('q', '') }}"
-                required>
-            <button class="btn">Найти</button>
-        </form>
+        {% if not session.user or session.user.role != 'admin' %}
+            <form action="/search" method="get" class="catalog-search">
+                <input
+                    type="text"
+                    name="q"
+                    placeholder="Поиск по каталогу"
+                    value="{{ request.args.get('q', '') }}"
+                    required>
+                <button class="btn">Найти</button>
+            </form>
+        {% endif %}
     </div>
     {% block content %}{% endblock %}
 </main>
@@ -179,6 +187,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     btn.remove();
   });
+});
+</script>
+<!--развернуть/свернуть в диалогах-->
+<script>
+document.addEventListener("click", function (e) {
+  const btn = e.target.closest(".dialog-toggle");
+  if (!btn) return;
+
+  e.preventDefault();
+
+  const id = btn.getAttribute("data-dialog");
+  if (!id) return;
+
+  const body = document.getElementById("dialog-" + id);
+  if (!body) return;
+
+  body.classList.toggle("news-hidden");
+
+  btn.textContent = body.classList.contains("news-hidden")
+    ? "Развернуть"
+    : "Свернуть";
 });
 </script>
 

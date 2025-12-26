@@ -40,6 +40,7 @@
                     <option {% if order.status == "завершён" %}selected{% endif %}>завершён</option>
                 </select>
                 <button class="btn">Сохранить</button>
+                <button type="submit" formaction="/admin/order/delete/{{ order.id }}" class="btn">Удалить</button>
             </form>
         </div>
     {% else %}

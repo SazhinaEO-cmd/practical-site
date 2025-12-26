@@ -15,6 +15,17 @@ def get_data():
 def load_users():
     with open("data/users.json", encoding="utf-8") as f:
         return json.load(f)["users"]
+    
+def load_json(path):
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return []
+
+def save_json(path, data):
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
 # ---------- Главная ----------
 @app.route("/")
@@ -188,12 +199,32 @@ def cart_clear():
 def contact_send():
     name = request.form.get("name")
     email = request.form.get("email")
-    message = request.form.get("message")
+    text = request.form.get("message")
 
-    # сохраняем в текстовый файл
-    with open("data/messages.txt", "a", encoding="utf-8") as f:
-        f.write(f"{name} | {email} | {message}\n")
+    messages = load_json("data/messages.json")
 
+    messages.append({
+        "id": int(datetime.now().timestamp()),
+        "type": "contact",
+        "topic": "Сообщение с формы контактов",
+        "status": "open",
+        "created_at": datetime.now().strftime("%Y-%m-%d %H:%M"),
+        "from": {
+            "role": "guest",
+            "username": session.get("user", {}).get("username") if session.get("user") else email,
+            "email": email,
+            "name": name
+        },
+        "messages": [
+            {
+                "author": "customer",
+                "text": text,
+                "date": datetime.now().strftime("%Y-%m-%d %H:%M")
+            }
+        ]
+    })
+
+    save_json("data/messages.json", messages)
     return redirect("/contacts")
 
 # ---------- Авторизация ----------    
@@ -237,10 +268,6 @@ def admin():
     except FileNotFoundError:
         orders = []
     return render_template("admin.html", orders = orders)
-
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template("404.html"), 404
 
 # ---------- Формирование заказа ----------
 @app.route("/order/create")
@@ -355,6 +382,142 @@ def search():
         results=results
     )
 
+# ---------- Страница сообщений покупателя ----------
+@app.route("/messages")
+def messages():
+    if not session.get("user"):
+        return redirect("/login")
+
+    messages = load_json("data/messages.json")
+
+    user_msgs = [
+        d for d in messages
+        if d["from"]["username"] == session["user"]["username"]
+    ]
+
+    return render_template("messages.html", messages=user_msgs)
+
+
+# ---------- Отправка сообщения от покупателя ----------
+@app.route("/messages/create", methods=["POST"])
+def create_dialog():
+    if not session.get("user"):
+        return redirect("/login")
+
+    dialogs = load_json("data/messages.json")
+
+    dialog = {
+        "id": int(datetime.now().timestamp()),
+        "topic": request.form["topic"],
+        "status": "open",
+        "created_at": datetime.now().strftime("%Y-%m-%d %H:%M"),
+        "from": {
+            "username": session["user"]["username"]
+        },
+        "messages": [
+            {
+                "username": session["user"]["username"],
+                "text": request.form["message"],
+                "date": datetime.now().strftime("%Y-%m-%d %H:%M")
+            }
+        ]
+    }
+
+    dialogs.append(dialog)
+    save_json("data/messages.json", dialogs)
+
+    return redirect("/messages")
+# ---------- Отправка сообщения в существующий диалог - покупатель ----------
+@app.route("/messages/send/<int:dialog_id>", methods=["POST"])
+def send_message(dialog_id):
+    dialogs = load_json("data/messages.json")
+
+    for d in dialogs:
+        if d["id"] == dialog_id and d["status"] == "open":
+            d["messages"].append({
+                "username": session["user"]["username"],
+                "text": request.form["message"],
+                "date": datetime.now().strftime("%Y-%m-%d %H:%M")
+            })
+            break
+
+    save_json("data/messages.json", dialogs)
+    return redirect("/messages")
+
+# ---------- Сообщения администратора ----------
+@app.route("/admin/messages")
+def admin_messages():
+    if not session.get("user") or session["user"]["role"] != "admin":
+        return redirect("/login")
+
+    messages = load_json("data/messages.json")
+    new_messages, new_orders = get_admin_counters()
+    return render_template("admin_messages.html",messages=messages,new_messages=new_messages,new_orders=new_orders)
+
+# ---------- Отправка сообщения в существующий диалог - админ ----------
+@app.route("/admin/messages/answer/<int:id>", methods=["POST"])
+def admin_answer(id):
+    dialogs = load_json("data/messages.json")
+
+    for d in dialogs:
+        if d["id"] == id and d["status"] == "open":
+            d["messages"].append({
+                "username": "admin",
+                "text": request.form["answer"],
+                "date": datetime.now().strftime("%Y-%m-%d %H:%M")
+            })
+            break
+
+    save_json("data/messages.json", dialogs)
+    return redirect("/admin/messages")
+# ---------- Закрытие диалога - админ ----------
+@app.route("/admin/messages/close/<int:id>", methods=["POST"])
+def admin_close_dialog(id):
+    dialogs = load_json("data/messages.json")
+
+    for d in dialogs:
+        if d["id"] == id:
+            d["status"] = "closed"
+            break
+
+    save_json("data/messages.json", dialogs)
+    return redirect("/admin/messages")
+# ---------- Новый заказ/сообщение ----------
+def get_admin_counters():
+    messages = load_json("data/messages.json")
+    orders = load_json("data/orders.json")
+
+    new_messages = 0
+    for d in messages:
+        if d.get("status") == "open":
+            last = d["messages"][-1]
+            if last.get("username") != "admin":
+                new_messages += 1
+    new_orders = len([o for o in orders if o.get("status") == "оформлен"])
+
+    return new_messages, new_orders
+
+@app.context_processor
+def inject_admin_counters():
+    user = session.get("user")
+    if user and user.get("role") == "admin":
+        new_messages, new_orders = get_admin_counters()
+        return dict(
+            new_messages=new_messages,
+            new_orders=new_orders
+        )
+    return dict(new_messages=0, new_orders=0)
+# ---------- Удаление заказов ----------
+@app.route("/admin/order/delete/<int:id>", methods=["POST"])
+def delete_order(id):
+    if session.get("user", {}).get("role") != "admin":
+        abort(403)
+
+    orders = load_json("data/orders.json")
+    orders = [o for o in orders if o["id"] != id]
+    save_json("data/orders.json", orders)
+
+    return redirect("/admin")
 
 if __name__ == "__main__":
     app.run(debug=True)
