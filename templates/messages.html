@@ -17,7 +17,7 @@
           </button>
         </div>
 
-        <div class="dialog-body" id="dialog-{{ m.id }}">
+        <div class="dialog-body {% if m.get('status','open') == 'closed' %}news-hidden{% endif %}" id="dialog-{{ m.id }}">
           {% for item in m.messages %}
             <div class="dialog-message {{ item.username }}">
               <strong>{{ "Вы" if item.username == session.user.username else "Администратор" }}</strong>

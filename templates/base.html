@@ -7,7 +7,6 @@
 </head>
 
 <body class="page">
-    <a href="#main-content" class="skip-link">Перейти к основному содержимому</a>
 <header>
     <div class="container header-inner">
         <div class="logo">HomeStore</div>
@@ -40,8 +39,7 @@
                         id="vision-mode-toggle"
                         role="switch"
                         aria-checked="false"
-                        aria-labelledby="vision-label"
-                    >
+                        aria-labelledby="vision-label">
                     <span class="slider" aria-hidden="true"></span>
                     </label>
                 </div>
@@ -63,7 +61,7 @@
     </div>
 </nav>
 {% endif %}
-<main id="main-content" class="page-content">
+<main class="page-content">
     <div class="container">
         {% if not session.user or session.user.role != 'admin' %}
             <form action="/search" method="get" class="catalog-search">
