@@ -255,8 +255,8 @@ document.querySelectorAll('[data-theme]').forEach(btn => {
 
 document.querySelectorAll('[data-img]').forEach(btn => {
   btn.addEventListener('click', () => {
-    document.body.classList.toggle('no-images', btn.dataset.images === 'off');
-    localStorage.setItem('images', btn.dataset.images);
+    document.body.classList.toggle('no-images', btn.dataset.img === 'off');
+    localStorage.setItem('images', btn.dataset.img);
   });
 });
 
