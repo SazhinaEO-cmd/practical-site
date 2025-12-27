@@ -301,3 +301,73 @@ header .accessibility-nav .switch input:checked + .slider::before {
   margin-top: 24px;
   text-align: center;
 }
+
+.vision-panel {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  padding: 14px 20px;
+  background: #f3f3f3;
+  border: 2px solid #000;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+.vision-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vision-title {
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+.vision-btn,
+.vision-color {
+  min-width: 44px;
+  height: 44px;
+  font-size: 18px;
+  font-weight: 700;
+  border: 2px solid #000;
+  background: #fff;
+  cursor: pointer;
+}
+
+.vision-color.black { background: #000; color: #fff; }
+.vision-color.blue  { background: #0057ff; color: #fff; }
+.vision-color.yellow{ background: #f5f500; color: #000; }
+.vision-color.green { background: #0a3; color: #fff; }
+
+.vision-btn:focus,
+.vision-color:focus {
+  outline: 3px solid #0038FF;
+}
+
+/* темы */
+.theme-black {
+  background: #000;
+  color: #fff;
+}
+
+.theme-blue {
+  background: #0057ff;
+  color: #fff;
+}
+
+.theme-yellow {
+  background: #f5f500;
+  color: #000;
+}
+
+.theme-green {
+  background: #0a3;
+  color: #fff;
+}
+
+/* отключение изображений */
+.no-images img {
+  display: none !important;
+}
+

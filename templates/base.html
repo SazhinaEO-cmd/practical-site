@@ -43,6 +43,30 @@
                     <span class="slider" aria-hidden="true"></span>
                     </label>
                 </div>
+                <div class="vision-panel" aria-label="Панель настроек отображения">
+                    <!-- Размер шрифта -->
+                    <div class="vision-group">
+                        <span class="vision-title">Размер шрифта</span>
+                        <button type="button" class="vision-btn" data-font="minus">A−</button>
+                        <button type="button" class="vision-btn" data-font="plus">A+</button>
+                    </div>
+                    <!-- Цвета -->
+                    <div class="vision-group">
+                        <span class="vision-title">Цвета сайта</span>
+                        <button type="button" class="vision-btn" data-theme="bw">Ч</button>
+                        <button type="button" class="vision-btn" data-theme="wb">Ч</button>
+                        <button type="button" class="vision-btn" data-theme="blue">Ц</button>
+                        <button type="button" class="vision-btn" data-theme="yellow">Ч</button>
+                        <button type="button" class="vision-btn" data-theme="green">Ч</button>
+                    </div>
+                    <!-- Изображения -->
+                    <div class="vision-group">
+                        <span class="vision-title">Изображения</span>
+                        <button type="button" class="vision-btn" data-img="on">🖼</button>
+                        <button type="button" class="vision-btn" data-img="off">⛔</button>
+                        <button type="button" class="vision-btn" data-img="gray">◐</button>
+                    </div>
+                </div>
                 </nav>
             </div>  
         </div>
@@ -207,6 +231,44 @@ document.addEventListener("click", function (e) {
     ? "Развернуть"
     : "Свернуть";
 });
+</script>
+<!--меню слабовидящих-->
+<script>
+let fontSize = 22;
+
+document.querySelectorAll('[data-font]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    fontSize += btn.dataset.font === 'plus' ? 2 : -2;
+    fontSize = Math.max(16, Math.min(fontSize, 32));
+    document.documentElement.style.fontSize = fontSize + 'px';
+    localStorage.setItem('fontSize', fontSize);
+  });
+});
+
+document.querySelectorAll('[data-theme]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.body.className = 'theme-' + btn.dataset.theme;
+    localStorage.setItem('theme', btn.dataset.theme);
+  });
+});
+
+document.querySelectorAll('[data-images]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.body.classList.toggle('no-images', btn.dataset.images === 'off');
+    localStorage.setItem('images', btn.dataset.images);
+  });
+});
+
+/* восстановление */
+if (localStorage.fontSize) {
+  document.documentElement.style.fontSize = localStorage.fontSize + 'px';
+}
+if (localStorage.theme) {
+  document.body.classList.add('theme-' + localStorage.theme);
+}
+if (localStorage.images === 'off') {
+  document.body.classList.add('no-images');
+}
 </script>
 
 </body>

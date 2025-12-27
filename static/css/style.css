@@ -211,6 +211,10 @@ header .accessibility-nav .switch input:checked + .slider::before {
   transform: translateX(26px);
 }
 
+.vision-panel {
+  display: none;
+}
+
 /* если по какой-то причине switch окажется в слайде — скрываем */
 .slider-wrapper .switch,
 .slide .switch {
