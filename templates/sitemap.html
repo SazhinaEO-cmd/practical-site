@@ -15,7 +15,8 @@
                     <li><a href="/delivery">Доставка и оплата</a></li>
                     <li><a href="/sales">Акции</a></li>
                     <li><a href="/about">О компании</a></li>
-                    <li><a href="/contacts">Контакты</a></li>
+                    <li><a href="/contacts">Контакты</a></li><li>
+                        <a href="/404">404</a></li>
                 </ul>
             </div>
         </div>
@@ -36,13 +37,10 @@
             <div class="body">
                 <h3>Покупателям</h3>
                 <ul class="sitemap-list">
+                    <li><a href="/login">Вход в личный кабинет</a></li>
                     <li><a href="/cart">Корзина</a></li>
-
-                    {% if session.get("user") %}
-                        <li><a href="/orders">Мои заказы</a></li>
-                    {% else %}
-                        <li><a href="/login">Вход в личный кабинет</a></li>
-                    {% endif %}
+                    <li><a href="/orders">Мои заказы</a>
+                    <li><a href="/messages">Мои cообщения</a></li>
                 </ul>
             </div>
         </div>

@@ -47,7 +47,7 @@ header{
   display: grid;
   align-items: center;
   grid-template-columns: auto 1fr auto;
-  gap: 24px;
+  gap: 20px;
 }
 
 header .container{
@@ -55,21 +55,14 @@ header .container{
   align-items: center;
   justify-content:space-between;
   gap: 16px;
-  padding:12px 16px;
+  padding: 12px 16px;
 }
 
 .header-nav {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
   flex-wrap: nowrap;
-  white-space: nowrap;
-}
-.header-nav a, .header-link {
-  color: var(--text);
-  font-weight: 700;
-  font-size: 18px;
-  padding: 6px;
   white-space: nowrap;
 }
 
@@ -78,6 +71,22 @@ header .container{
   align-items: center;
   gap: 16px;
 }
+
+.header-nav a, .header-link {
+  color: var(--text);
+  font-weight: 700;
+  font-size: 18px;
+  padding: 6px;
+  white-space: nowrap;
+}
+
+header .accessibility-nav {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+
 
 /* крупные кнопки */
 .btn {
@@ -289,7 +298,7 @@ header .accessibility-nav .switch input:checked + .slider::before {
 
 /* если по какой-то причине switch окажется в слайде — скрываем */
 .slider-wrapper .switch,
-.slide .switch {
+.slide .switch, .slider-arrow {
   display: none !important;
 }
 
@@ -303,6 +312,10 @@ header .accessibility-nav .switch input:checked + .slider::before {
 }
 
 .vision-panel {
+  margin-top: 8px;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
   display: flex;
   gap: 24px;
   align-items: center;
@@ -335,10 +348,11 @@ header .accessibility-nav .switch input:checked + .slider::before {
   cursor: pointer;
 }
 
-.vision-color.black { background: #000; color: #fff; }
-.vision-color.blue  { background: #0057ff; color: #fff; }
-.vision-color.yellow{ background: #f5f500; color: #000; }
-.vision-color.green { background: #0a3; color: #fff; }
+.vision-btn.bw { background: #000; color: #fff; }
+.vision-btn.wb { background: #fff; color: #000; }
+.vision-btn.blue  { background: #9dd1ff; color: #063462; }
+.vision-btn.yellow{ background: #f7f3d6; color: #4d4b43; }
+.vision-btn.green { background: #3b2716; color: #a9e44d; }
 
 .vision-btn:focus,
 .vision-color:focus {
@@ -346,24 +360,29 @@ header .accessibility-nav .switch input:checked + .slider::before {
 }
 
 /* темы */
-.theme-black {
+.theme-bw {
   background: #000;
   color: #fff;
 }
 
-.theme-blue {
-  background: #0057ff;
-  color: #fff;
-}
-
-.theme-yellow {
-  background: #f5f500;
+.theme-wb {
+  background: #fff;
   color: #000;
 }
 
+.theme-blue {
+  background: #9dd1ff;
+  color: #063462;
+}
+
+.theme-yellow {
+  background: #f7f3d6;
+  color: #4d4b43;
+}
+
 .theme-green {
-  background: #0a3;
-  color: #fff;
+  background: #3b2716;
+  color: #a9e44d;
 }
 
 /* отключение изображений */

@@ -43,30 +43,6 @@
                     <span class="slider" aria-hidden="true"></span>
                     </label>
                 </div>
-                <div class="vision-panel" aria-label="Панель настроек отображения">
-                    <!-- Размер шрифта -->
-                    <div class="vision-group">
-                        <span class="vision-title">Размер шрифта</span>
-                        <button type="button" class="vision-btn" data-font="minus">A−</button>
-                        <button type="button" class="vision-btn" data-font="plus">A+</button>
-                    </div>
-                    <!-- Цвета -->
-                    <div class="vision-group">
-                        <span class="vision-title">Цвета сайта</span>
-                        <button type="button" class="vision-btn" data-theme="bw">Ч</button>
-                        <button type="button" class="vision-btn" data-theme="wb">Ч</button>
-                        <button type="button" class="vision-btn" data-theme="blue">Ц</button>
-                        <button type="button" class="vision-btn" data-theme="yellow">Ч</button>
-                        <button type="button" class="vision-btn" data-theme="green">Ч</button>
-                    </div>
-                    <!-- Изображения -->
-                    <div class="vision-group">
-                        <span class="vision-title">Изображения</span>
-                        <button type="button" class="vision-btn" data-img="on">🖼</button>
-                        <button type="button" class="vision-btn" data-img="off">⛔</button>
-                        <button type="button" class="vision-btn" data-img="gray">◐</button>
-                    </div>
-                </div>
                 </nav>
             </div>  
         </div>
@@ -99,7 +75,32 @@
             </form>
         {% endif %}
     </div>
+    <div class="vision-panel" aria-label="Панель настроек отображения">
+    <!-- Размер шрифта -->
+      <div class="vision-group">
+        <span class="vision-title">Размер шрифта</span>
+        <button type="button" class="vision-btn" data-font="minus">A−</button>
+        <button type="button" class="vision-btn" data-font="plus">A+</button>
+      </div>
+    <!-- Цвета -->
+      <div class="vision-group">
+        <span class="vision-title">Цвета сайта</span>
+        <button type="button" class="vision-btn" data-theme="bw" title="Белый фон, черный текст">Ц</button>
+        <button type="button" class="vision-btn" data-theme="wb" title="Черный фон, белый текст">Ц</button>
+        <button type="button" class="vision-btn" data-theme="blue" title="Светло-синий, темно-синий текст">Ц</button>
+        <button type="button" class="vision-btn" data-theme="yellow" title="Бежевый фон, коричневый текст">Ц</button>
+        <button type="button" class="vision-btn" data-theme="green" title="Коричневый фон, зеленый текст">Ц</button>
+      </div>
+    <!-- Изображения -->
+      <div class="vision-group">
+        <span class="vision-title">Изображения</span>
+        <button type="button" class="vision-btn" data-img="on" title="Включить изображения">🖼</button>
+        <button type="button" class="vision-btn" data-img="off" title="Выключить изображения">⛔</button>
+        <button type="button" class="vision-btn" data-img="gray" title="Черно-белые изображения">◐</button>
+      </div>
+    </div>
     {% block content %}{% endblock %}
+    
 </main>
 
 <footer>
@@ -240,7 +241,7 @@ document.querySelectorAll('[data-font]').forEach(btn => {
   btn.addEventListener('click', () => {
     fontSize += btn.dataset.font === 'plus' ? 2 : -2;
     fontSize = Math.max(16, Math.min(fontSize, 32));
-    document.documentElement.style.fontSize = fontSize + 'px';
+    document.documentElement.style.setProperty('--base-size', fontSize + 'px');
     localStorage.setItem('fontSize', fontSize);
   });
 });
@@ -252,7 +253,7 @@ document.querySelectorAll('[data-theme]').forEach(btn => {
   });
 });
 
-document.querySelectorAll('[data-images]').forEach(btn => {
+document.querySelectorAll('[data-img]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.body.classList.toggle('no-images', btn.dataset.images === 'off');
     localStorage.setItem('images', btn.dataset.images);
