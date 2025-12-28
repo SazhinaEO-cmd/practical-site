@@ -11,6 +11,12 @@
       "username": "user",
       "password": "user123",
       "role": "customer"
+    },
+    {
+      "id": 3,
+      "username": "ElenaSO",
+      "password": "ElenaSO89",
+      "role": "customer"
     }
   ]
 }

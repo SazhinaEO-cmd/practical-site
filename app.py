@@ -27,6 +27,9 @@ def save_json(path, data):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
+def save_users(users):
+    with open("data/users.json", "w", encoding="utf-8") as f:
+        json.dump({"users": users}, f, ensure_ascii=False, indent=2)
 # ---------- Главная ----------
 @app.route("/")
 def index():
@@ -231,23 +234,37 @@ def contact_send():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        username = request.form.get("username")
-        password = request.form.get("password")
+        username = request.form.get("username").strip()
+        password = request.form.get("password").strip()
+        action = request.form.get("action")
 
-        users = load_users()
+        users_data = load_json("data/users.json")
+        users = users_data.get("users", [])
+        
         user = next(
-            (u for u in users if u["username"] == username and u["password"] == password),
-            None
-        )
+            (u for u in users if u["username"] == username), None)
 
-        if user:
-            session["user"] = {
-                "username": user["username"],
-                "role": user["role"]
-            }
-            return redirect("/")
-        else:
-            flash("Неверный логин или пароль")
+        if action == "login":
+            if user and user["password"] == password:
+                session["user"] = {"username": user["username"],"role": user["role"]}
+                return redirect("/")
+            else:
+                flash("Пользователь не зарегистрирован или неверный логин/пароль.Нажмите «Регистрация»")
+                return render_template("login.html")
+        if action == "register":
+            if user:
+                session["user"] = {"username": user["username"], "role": user["role"]}
+                return redirect("/")
+            else:
+                new_user = {"id":max(u["id"] for u in users) + 1 if users else 1,
+                            "username": username,
+                            "password": password,
+                            "role": "customer"}
+                users.append(new_user)
+                save_users(users)
+
+                session["user"] = {"username": new_user["username"], "role": new_user["role"]}
+                return redirect("/")
 
     return render_template("login.html")
 

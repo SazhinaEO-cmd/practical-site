@@ -6,9 +6,18 @@
 
   <form method="post" class="login-form">
     <h1>Вход в систему</h1>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="flash">
+            {{ messages[0] }}
+          </div>
+        {% endif %}
+      {% endwith %}
     <input name="username" placeholder="Логин" required>
     <input name="password" type="password" placeholder="Пароль" required>
-    <button class="btn">Войти</button>
+    <button class="btn" name="action" value="login">Войти</button>
+    <button class="btn" name="action" value="register">Регистрация</button>
+
   </form>
 </section>
 {% endblock %}
